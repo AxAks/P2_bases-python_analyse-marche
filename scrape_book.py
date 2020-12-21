@@ -9,24 +9,11 @@ fichier = open("./surveillance_prix.csv", "w+")
 
 
 """
-clés du dictionnaire (10):
-product_page_url
-universal_product_code
-title
-price_including_tax
-price_excluding_tax
-number_available
-product_description
-category
-review_rating
-image_url
+Récupération des informations du livre dans un dictionnaire 
 """
-
-""" récupération des informations du livre dans un dictionnaire """
 
 
 def get_book_infos(url):
-    resultat = {}
     response = requests.get(url)  # verifie le code statut de la requete si 200 tout est OK !
     byte_data = response.content  # le contenu brut de la page
     soup = bs(byte_data, 'lxml')
@@ -39,20 +26,20 @@ def get_book_infos(url):
     availability = soup.find_all('td')[5].get_text()
     reviews_rating = soup.find_all('p', class_='star-rating')[0].get('class')[1]
     image_url = soup.find('img')['src']
-    print(f"URL : {url}")
-    print(f"UPC : {upc}")
-    print(f"Titre : {title}")
-    print(f"Prix sans TVA :{price_no_tax}")
-    print(f"Prix avec TVA : {price_with_tax}")
-    print(f"Disponibilité : {availability}")
-    print(f"Résumé : {product_descr}")
-    print(f"Categorie : {category}")
-    print(f"Note : {reviews_rating}")
-    print(f"URL de l'image : {image_url}")
-    """
-    return url, upc, title, price_no_tax, price_with_tax, availability,\
-           product_descr, category, reviews_rating, image_url  # resultat de la fonction
-    """
+
+    infos_book = {
+        'url': url,
+        'upc': upc,
+        'title': title,
+        'price_no_tax': price_no_tax,
+        'price_with_tax': price_with_tax,
+        'availability': availability,
+        'product_descr': product_descr,
+        'category': category,
+        'reviews_rating': reviews_rating,
+        'image_url': image_url
+    }
+    return infos_book
 
 
 """
