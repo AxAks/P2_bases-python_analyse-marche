@@ -27,7 +27,7 @@ def get_book_infos(url):
     reviews_rating = soup.find_all('p', class_='star-rating')[0].get('class')[1]
     image_url = soup.find('img')['src']
 
-    infos_book = {
+    book_infos = {
         'url': url,
         'upc': upc,
         'title': title,
@@ -39,7 +39,7 @@ def get_book_infos(url):
         'reviews_rating': reviews_rating,
         'image_url': image_url
     }
-    return infos_book
+    return book_infos
 
 
 """
