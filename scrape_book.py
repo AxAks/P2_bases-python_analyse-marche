@@ -1,9 +1,10 @@
 import requests
 from bs4 import BeautifulSoup as bs
+import argparse
 import pandas as pd
 import csv
 
-url = 'http://books.toscrape.com/catalogue/holidays-on-ice_167/index.html' # pas de code sauvage !!
+# url = 'http://books.toscrape.com/catalogue/holidays-on-ice_167/index.html' # pas de code sauvage !!
 fichier = open("./surveillance_prix.csv", "w+")  # pareil (hors fonction !)
 
 
@@ -13,25 +14,30 @@ Récupération des informations du livre dans un dictionnaire
 
 
 def main():
-    get_book_infos(url)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("url", help="scapes the product infos on the page given as argument", type=str)
+    args = parser.parse_args()
+    print(args.url)
+    return get_book_infos(args.url)
 
 
-def get_book_infos(url):
-    response = requests.get(url)  # verifie le code statut de la requete si 200 tout est OK !
+def get_book_infos(*args):
+    response = requests.get(*args)  # verifie le code statut de la requete si 200 tout est OK !
     byte_data = response.content  # le contenu brut de la page
     soup = bs(byte_data, 'lxml')
-    title = soup.find_all('h1')[0].get_text()
-    product_descr = soup.find_all('p')[3].get_text()
+    url = str(*args)
     upc = soup.find_all('td')[0].get_text()
-    category = soup.find_all('td')[1].get_text()
+    title = soup.find_all('h1')[0].get_text()
     price_no_tax = soup.find_all('td')[2].get_text()
     price_with_tax = soup.find_all('td')[3].get_text()
     availability = soup.find_all('td')[5].get_text()
+    product_descr = soup.find_all('p')[3].get_text()
+    category = soup.find_all('td')[1].get_text()
     reviews_rating = soup.find_all('p', class_='star-rating')[0].get('class')[1]
     image_url = soup.find('img')['src']
 
     book_infos = {
-        'url': url,
+        'url': url,  #  pb : c'est un tuple pas un string
         'upc': upc,
         'title': title,
         'price_no_tax': price_no_tax,

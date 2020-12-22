@@ -24,3 +24,5 @@ Installation du gestionnaire de paquets python 'pip' :
 - python3.9 get-pip.py (installer pip dans l'environnement virtuel via l'execution du script téléchargé précédemment)
 - pip --version (vérifier la version de pip installée)
 
+
+Exécution de l'application :
