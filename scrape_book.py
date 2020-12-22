@@ -4,8 +4,8 @@ import argparse
 import pandas as pd
 import csv
 
-# url = 'http://books.toscrape.com/catalogue/holidays-on-ice_167/index.html' # pas de code sauvage !!
-fichier = open("./surveillance_prix.csv", "w+")  # pareil (hors fonction !)
+# url = 'http://books.toscrape.com/catalogue/holidays-on-ice_167/index.html' # passé en argument à lancer depuis bash
+fichier = open("./surveillance_prix.csv", "w+")  # pas de code sauvage (hors fonction !)
 
 
 """
@@ -25,27 +25,27 @@ def get_book_infos(*args):
     response = requests.get(*args)  # verifie le code statut de la requete si 200 tout est OK !
     byte_data = response.content  # le contenu brut de la page
     soup = bs(byte_data, 'lxml')
-    url = str(*args)
-    upc = soup.find_all('td')[0].get_text()
+    product_page_url = str(*args)
+    universal_product_code = soup.find_all('td')[0].get_text()
     title = soup.find_all('h1')[0].get_text()
-    price_no_tax = soup.find_all('td')[2].get_text()
-    price_with_tax = soup.find_all('td')[3].get_text()
-    availability = soup.find_all('td')[5].get_text()
-    product_descr = soup.find_all('p')[3].get_text()
+    price_including_tax = soup.find_all('td')[3].get_text()
+    price_excluding_tax = soup.find_all('td')[2].get_text()
+    number_available = soup.find_all('td')[5].get_text()
+    product_description = soup.find_all('p')[3].get_text()
     category = soup.find_all('td')[1].get_text()
-    reviews_rating = soup.find_all('p', class_='star-rating')[0].get('class')[1]
+    review_rating = soup.find_all('p', class_='star-rating')[0].get('class')[1]
     image_url = soup.find('img')['src']
 
     book_infos = {
-        'url': url,  #  pb : c'est un tuple pas un string
-        'upc': upc,
+        'product_page_url': product_page_url,
+        'universal_product_code': universal_product_code,
         'title': title,
-        'price_no_tax': price_no_tax,
-        'price_with_tax': price_with_tax,
-        'availability': availability,
-        'product_descr': product_descr,
+        'price_including_tax': price_including_tax,
+        'price_excluding_tax': price_excluding_tax,
+        'number_available': number_available,
+        'product_description': product_description,
         'category': category,
-        'reviews_rating': reviews_rating,
+        'review_rating': review_rating,
         'image_url': image_url
     }
     print(book_infos)
@@ -62,10 +62,9 @@ def write_csv(fichier):
 def read_csv(fichier):
     print(csv.reader(fichier))
 
-"""
 
 if __name__ == "main":
     main()
-
+"""
 
 main()
