@@ -32,7 +32,7 @@ def get_book_infos(*args):
     price_excluding_tax = soup.find_all('td')[2].get_text()
     number_available = soup.find_all('td')[5].get_text()
     product_description = soup.find_all('p')[3].get_text()
-    category = soup.find_all('td')[1].get_text()
+    category = soup.find_all('a')[3].get_text()
     review_rating = soup.find_all('p', class_='star-rating')[0].get('class')[1]
     image_url = soup.find('img')['src']
 

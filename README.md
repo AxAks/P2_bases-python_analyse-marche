@@ -26,3 +26,7 @@ Installation du gestionnaire de paquets python 'pip' :
 
 
 Exécution de l'application :
+
+- cd P2_bases-python_analyse-marche
+- python scrape_book.py url (url doit etre une url écrite en toutes lettres)
+-> C'est pour une page produit seulement, à l'envler et remplacer quand le scrapping site sera complet
