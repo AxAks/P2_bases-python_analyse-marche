@@ -20,7 +20,7 @@ Activation de l'environnement :
 - source venv_bookscrapper/bin/activate
 
 Installation du gestionnaire de paquets python 'pip' :
-- get https://bootstrap.pypa.io/get-pip.py (télécharger le script d'installation du gestionnaire de paquets python pip)
+- wget https://bootstrap.pypa.io/get-pip.py (télécharger le script d'installation du gestionnaire de paquets python pip)
 - python3.9 get-pip.py (installer pip dans l'environnement virtuel via l'execution du script téléchargé précédemment)
 - pip --version (vérifier la version de pip installée)
 
