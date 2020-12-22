@@ -1,16 +1,19 @@
-import pandas as pd
 import requests
-from lxml import html
 from bs4 import BeautifulSoup as bs
+import pandas as pd
 import csv
 
-url = 'http://books.toscrape.com/catalogue/holidays-on-ice_167/index.html'
-fichier = open("./surveillance_prix.csv", "w+")
+url = 'http://books.toscrape.com/catalogue/holidays-on-ice_167/index.html' # pas de code sauvage !!
+fichier = open("./surveillance_prix.csv", "w+")  # pareil (hors fonction !)
 
 
 """
-Récupération des informations du livre dans un dictionnaire 
+Récupération des informations du livre dans un dictionnaire
 """
+
+
+def main():
+    get_book_infos(url)
 
 
 def get_book_infos(url):
@@ -39,6 +42,7 @@ def get_book_infos(url):
         'reviews_rating': reviews_rating,
         'image_url': image_url
     }
+    print(book_infos)
     return book_infos
 
 
@@ -52,12 +56,10 @@ def write_csv(fichier):
 def read_csv(fichier):
     print(csv.reader(fichier))
 
-
-def main():
-    get_book_infos(url)
-
+"""
 
 if __name__ == "main":
     main()
-"""
-get_book_infos(url)
+
+
+main()
