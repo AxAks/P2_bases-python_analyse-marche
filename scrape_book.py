@@ -50,28 +50,24 @@ def get_book_infos(*args):
         'review_rating': review_rating,
         'image_url': image_url
     }
-    print(book_infos)
+    print(f" get book infos : {book_infos}")
     return book_infos
 
 
 """
-pandas pour gerer tout le csv
+pandas pour gerer tout le csv ? ou juste csv ? Pandas doit le faire plus simplement ...
 écrire les resultats dans le fichier csv
 """
 
 
 def write_csv(book_infos):
-    fichier = open("./surveillance_prix.csv", "w+")  # en test
-    w = csv.DictWriter(fichier, book_infos.keys())
-    w.writeheader()
-    print(book_infos)
-    w.writerow(book_infos)
+    fichier = open("./surveillance_prix.csv", "w+")
+    df = pd.DataFrame(book_infos, index=['index'])  # à quoi sert l'index
+    print(f"pandas :{df}")
+    df.to_csv(fichier, index= False)  # à quoi sert l'index
+
 
 """
-def read_csv(fichier):
-    print(csv.reader(fichier))
-
-
 if __name__ == "main":
     main()
 """
