@@ -5,7 +5,7 @@ import pandas as pd
 import csv
 
 # url = 'http://books.toscrape.com/catalogue/holidays-on-ice_167/index.html' # passé en argument à lancer depuis bash
-fichier = open("./surveillance_prix.csv", "w+")  # pas de code sauvage (hors fonction !)
+# fichier = open("./surveillance_prix.csv", "w+")  # pas de code sauvage (hors fonction !)
 
 
 """
@@ -17,8 +17,10 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("url", help="scapes the product infos on the page given as argument", type=str)
     args = parser.parse_args()
-    print(args.url)
-    return get_book_infos(args.url)
+    book_infos = get_book_infos(args.url)
+    write_csv(book_infos)
+    print(True)
+    return True
 
 
 def get_book_infos(*args):
@@ -53,12 +55,19 @@ def get_book_infos(*args):
 
 
 """
-#  pandas pour gerer tout le csv
-ecrire les resultats dans le fichier csv
-def write_csv(fichier):
-    fichier.file.seek(0, 2)
+pandas pour gerer tout le csv
+écrire les resultats dans le fichier csv
+"""
 
 
+def write_csv(book_infos):
+    fichier = open("./surveillance_prix.csv", "w+")  # en test
+    w = csv.DictWriter(fichier, book_infos.keys())
+    w.writeheader()
+    print(book_infos)
+    w.writerow(book_infos)
+
+"""
 def read_csv(fichier):
     print(csv.reader(fichier))
 
