@@ -2,11 +2,8 @@ import requests
 from bs4 import BeautifulSoup as bs
 import argparse
 import pandas as pd
-import csv
 
 # url = 'http://books.toscrape.com/catalogue/holidays-on-ice_167/index.html' # passé en argument à lancer depuis bash
-# fichier = open("./surveillance_prix.csv", "w+")  # pas de code sauvage (hors fonction !)
-
 
 """
 Récupération des informations du livre dans un dictionnaire
@@ -62,9 +59,9 @@ pandas pour gerer tout le csv ? ou juste csv ? Pandas doit le faire plus simplem
 
 def write_csv(book_infos):
     fichier = open("./surveillance_prix.csv", "w+")
-    df = pd.DataFrame(book_infos, index=['index'])  # à quoi sert l'index
+    df = pd.DataFrame(book_infos, index=['index'])  #  à quoi sert l'index
     print(f"pandas :{df}")
-    df.to_csv(fichier, index= False)  # à quoi sert l'index
+    df.to_csv(fichier, index=False)  # à quoi sert l'index
 
 
 """
