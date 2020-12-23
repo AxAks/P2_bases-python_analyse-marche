@@ -47,7 +47,6 @@ def get_book_infos(*args):
         'review_rating': review_rating,
         'image_url': image_url
     }
-    print(f" get book infos : {book_infos}")
     return book_infos
 
 
@@ -59,9 +58,9 @@ pandas pour gerer tout le csv ? ou juste csv ? Pandas doit le faire plus simplem
 
 def write_csv(book_infos):
     fichier = open("./surveillance_prix.csv", "w+")
-    df = pd.DataFrame(book_infos, index=['index'])  #  à quoi sert l'index
+    df = pd.DataFrame(book_infos, index=[1])  #  Indexe les lignes de valeurs à partir de 1
     print(f"pandas :{df}")
-    df.to_csv(fichier, index=False)  # à quoi sert l'index
+    df.to_csv(fichier, index=False)  # Ne reserve pas une colonne pour le numéro d'index
 
 
 """
