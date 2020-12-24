@@ -63,10 +63,10 @@ Prend en entrée un dictionnaire et copie les informations dans un fichier CSV
 
 
 def write_csv(book_infos):
-    fichier = open("./surveillance_prix.csv", "w+")
+    fichier = open("./surveillance_prix.csv", "a")
     df = pd.DataFrame(book_infos, index=[1])  #  Indexe les lignes de valeurs à partir de 1
     print(df)
-    df.to_csv(fichier, index=False)  # Ne reserve pas une colonne pour le numéro d'index
+    df.to_csv(fichier, mode='a', header=False, index=False)  # Ne reserve pas une colonne pour le numéro d'index
 
 
 if __name__ == "main":
