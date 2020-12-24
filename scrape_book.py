@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup as bs
 import argparse
 import pandas as pd
+from urllib.parse import urljoin
 
 # url = 'http://books.toscrape.com/catalogue/holidays-on-ice_167/index.html' # passé en argument à lancer depuis bash
 
@@ -36,7 +37,9 @@ def get_book_infos(book_url):
     product_description = soup.find_all('p')[3].get_text()
     category = soup.find_all('a')[3].get_text()
     review_rating = soup.find_all('p', class_='star-rating')[0].get('class')[1]
-    image_url = soup.find('img')['src']
+    relative_image_url = soup.find('img')['src']
+    relative_image_url = relative_image_url.replace(relative_image_url[:5], '')
+    absolute_image_url = urljoin('http://books.toscrape.com', relative_image_url)
 
     book_infos = {
         'product_page_url': product_page_url,
@@ -48,8 +51,9 @@ def get_book_infos(book_url):
         'product_description': product_description,
         'category': category,
         'review_rating': review_rating,
-        'image_url': image_url
+        'image_url': absolute_image_url
     }
+    print(book_infos)
     return book_infos
 
 
@@ -67,3 +71,4 @@ def write_csv(book_infos):
 
 if __name__ == "main":
     main()
+
