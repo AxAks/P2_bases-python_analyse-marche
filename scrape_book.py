@@ -6,7 +6,7 @@ import pandas as pd
 # url = 'http://books.toscrape.com/catalogue/holidays-on-ice_167/index.html' # passé en argument à lancer depuis bash
 
 """
-Récupération des informations du livre dans un dictionnaire
+Récupération des informations d'un livre et ecriture dans un fichier CSV
 """
 
 
@@ -18,6 +18,11 @@ def main():
     write_csv(book_infos)
     print(True)
     return True
+
+
+"""
+Prend en entrée l'URL d'une page produit du site et retourne un dictionnaire avec les informations recherchées 
+"""
 
 
 def get_book_infos(*args):
@@ -51,15 +56,14 @@ def get_book_infos(*args):
 
 
 """
-pandas pour gerer tout le csv ? ou juste csv ? Pandas doit le faire plus simplement ...
-écrire les resultats dans le fichier csv
+Prend en entrée un dictionnaire et copie les informations dans un fichier CSV
 """
 
 
 def write_csv(book_infos):
     fichier = open("./surveillance_prix.csv", "w+")
     df = pd.DataFrame(book_infos, index=[1])  #  Indexe les lignes de valeurs à partir de 1
-    print(f"pandas :{df}")
+    print(df)
     df.to_csv(fichier, index=False)  # Ne reserve pas une colonne pour le numéro d'index
 
 
