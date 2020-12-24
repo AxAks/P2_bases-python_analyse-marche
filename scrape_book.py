@@ -10,12 +10,10 @@ Récupération des informations d'un livre et ecriture dans un fichier CSV
 """
 
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("url", help="scapes the product infos on the page given as argument", type=str)
-    args = parser.parse_args()
-    book_infos = get_book_infos(args.url)
+def main(book_url):
+    book_infos = get_book_infos(book_url)
     write_csv(book_infos)
+    print('je passe ici')
     print(True)
     return True
 
@@ -25,11 +23,11 @@ Prend en entrée l'URL d'une page produit du site et retourne un dictionnaire av
 """
 
 
-def get_book_infos(*args):
-    response = requests.get(*args)  # verifie le code statut de la requete si 200 tout est OK !
+def get_book_infos(book_url):
+    response = requests.get(book_url)  # verifie le code statut de la requete si 200 tout est OK !
     byte_data = response.content  # le contenu brut de la page
     soup = bs(byte_data, 'lxml')
-    product_page_url = str(*args)
+    product_page_url = str(book_url)
     universal_product_code = soup.find_all('td')[0].get_text()
     title = soup.find_all('h1')[0].get_text()
     price_including_tax = soup.find_all('td')[3].get_text()
@@ -67,9 +65,5 @@ def write_csv(book_infos):
     df.to_csv(fichier, index=False)  # Ne reserve pas une colonne pour le numéro d'index
 
 
-"""
 if __name__ == "main":
     main()
-"""
-
-main()
