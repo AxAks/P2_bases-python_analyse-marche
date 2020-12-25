@@ -1,21 +1,19 @@
-import requests
-from bs4 import BeautifulSoup as bs
-import argparse
+from utils import html_to_soup
 import pandas as pd
 from urllib.parse import urljoin
 
-# url = 'http://books.toscrape.com/catalogue/holidays-on-ice_167/index.html' # passé en argument à lancer depuis bash
-
 """
 Récupération des informations d'un livre et ecriture dans un fichier CSV
+(Ne se lance pas seul, il doit etre appelé par une autre fonction avec une URL de page produit en argument)
 """
+
+
+#  book_url = 'http://books.toscrape.com/catalogue/holidays-on-ice_167/index.html'  #  juste pour les tests
 
 
 def main(book_url):
     book_infos = get_book_infos(book_url)
     write_csv(book_infos)
-    print('je passe ici')
-    print(True)
     return True
 
 
@@ -25,9 +23,7 @@ Prend en entrée l'URL d'une page produit du site et retourne un dictionnaire av
 
 
 def get_book_infos(book_url):
-    response = requests.get(book_url)  # verifie le code statut de la requete si 200 tout est OK !
-    byte_data = response.content  # le contenu brut de la page
-    soup = bs(byte_data, 'lxml')
+    soup = html_to_soup(book_url)
     product_page_url = str(book_url)
     universal_product_code = soup.find_all('td')[0].get_text()
     title = soup.find_all('h1')[0].get_text()
@@ -53,7 +49,6 @@ def get_book_infos(book_url):
         'review_rating': review_rating,
         'image_url': absolute_image_url
     }
-    print(book_infos)
     return book_infos
 
 
@@ -65,10 +60,10 @@ Prend en entrée un dictionnaire et copie les informations dans un fichier CSV
 def write_csv(book_infos):
     fichier = open("./surveillance_prix.csv", "a")
     df = pd.DataFrame(book_infos, index=[1])  #  Indexe les lignes de valeurs à partir de 1
-    print(df)
     df.to_csv(fichier, mode='a', header=False, index=False)  # Ne reserve pas une colonne pour le numéro d'index
+    print(f"Infos de '{book_infos['title']}' insérées dans CSV")
+    return True
 
 
 if __name__ == "main":
     main()
-
