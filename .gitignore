@@ -1,3 +1,5 @@
 
 # Ignorer les fichiers PyCharm
 .idea/
+__pycache__/
+algorithme_scrape-category.txt
