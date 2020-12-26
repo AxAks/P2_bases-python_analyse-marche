@@ -8,7 +8,7 @@ Récupération des informations d'un livre et ecriture dans un fichier CSV
 """
 
 
-#  book_url = 'http://books.toscrape.com/catalogue/holidays-on-ice_167/index.html'  #  juste pour les tests
+#   book_url = 'http://books.toscrape.com/catalogue/holidays-on-ice_167/index.html'  #  juste pour les tests
 
 
 def main(book_url):
@@ -58,7 +58,9 @@ Prend en entrée un dictionnaire et copie les informations dans un fichier CSV
 
 
 def write_csv(book_infos):
-    fichier = open("./surveillance_prix.csv", "a")
+    category = book_infos['category']
+    nom_fichier = f"./CSV_files/surveillance_prix-{category}.csv"
+    fichier = open(nom_fichier, "a")
     df = pd.DataFrame(book_infos, index=[1])  #  Indexe les lignes de valeurs à partir de 1
     df.to_csv(fichier, mode='a', header=False, index=False)  # Ne reserve pas une colonne pour le numéro d'index
     print(f"Infos du Livre insérées dans le CSV : {book_infos['title']}")

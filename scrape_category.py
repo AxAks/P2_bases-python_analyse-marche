@@ -4,7 +4,9 @@ from urllib.parse import urljoin
 import requests
 
 
-#   url = "http://books.toscrape.com/catalogue/category/books/default_15/index.html" #  pour tests
+# url = "http://books.toscrape.com/catalogue/category/books/default_15/index.html" #  pour tests
+
+
 def main():
     args = url_args_parser()
     pagination_pages = get_all_pages_category(args.url)
@@ -24,12 +26,16 @@ on donne l'url index de la categorie et on verifie s'il y a des pages supplémen
 
 
 def get_all_pages_category(url):
+    print("récupération de toutes les pages de la catégorie ...")
     pagination_pages = []
     n = 1
     n_string = str(n)
     next_page_absolute = urljoin(url, f"page-{n_string}.html")
     response = requests.get(next_page_absolute)
     while response.status_code == 200:   # pb si site temporairement inaccesible pendant la boucle
+        print(f"Test : Page {n}")
+        if response.status_code == 200:
+            print(f"Il existe une page {n}")
         pagination_pages.append(next_page_absolute)
         n += 1
         n_string = str(n)
@@ -78,10 +84,10 @@ def reformat_relative_url_to_absolute(relative_books_urls):
     return absolute_books_urls
 
 
-def scrape_category_books(absolute_books_urls):  # penser à la pagination !!
+def scrape_category_books(absolute_books_urls):
     for absolute_book_url in absolute_books_urls:
         scrape_book.main(absolute_book_url)
-    print(f"Infos des livres de la catégorie récupérées")
+    print(f"Infos récupérées : {len(absolute_books_urls)} réferences insérées")
     return True
 
 
