@@ -36,7 +36,6 @@ def get_book_infos(book_url):
     relative_image_url = soup.find('img')['src']
     relative_image_url = relative_image_url.replace(relative_image_url[:5], '')
     absolute_image_url = urljoin('http://books.toscrape.com', relative_image_url)
-
     book_infos = {
         'product_page_url': product_page_url,
         'universal_product_code': universal_product_code,
@@ -49,6 +48,7 @@ def get_book_infos(book_url):
         'review_rating': review_rating,
         'image_url': absolute_image_url
     }
+    print(f"Infos du Livre récupérées : {title}")
     return book_infos
 
 
@@ -61,7 +61,7 @@ def write_csv(book_infos):
     fichier = open("./surveillance_prix.csv", "a")
     df = pd.DataFrame(book_infos, index=[1])  #  Indexe les lignes de valeurs à partir de 1
     df.to_csv(fichier, mode='a', header=False, index=False)  # Ne reserve pas une colonne pour le numéro d'index
-    print(f"Infos de '{book_infos['title']}' insérées dans CSV")
+    print(f"Infos du Livre insérées dans le CSV : {book_infos['title']}")
     return True
 
 
