@@ -12,10 +12,7 @@ Récupération des informations d'un livre et ecriture dans un fichier CSV
 
 
 def main(book_url):
-    book_infos = get_book_infos(book_url)
-    write_csv(book_infos)
-    return True
-
+    print(get_book_infos(book_url))
 
 """
 Prend en entrée l'URL d'une page produit du site et retourne un dictionnaire avec les informations recherchées 
