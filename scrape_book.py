@@ -64,6 +64,7 @@ def write_csv(book_infos):
     df = pd.DataFrame(book_infos, index=[1])  #  Indexe les lignes de valeurs à partir de 1
     df.to_csv(fichier, mode='a', header=False, index=False)  # Ne reserve pas une colonne pour le numéro d'index
     print(f"Infos du Livre insérées dans le CSV : {book_infos['title']}")
+    print('---')
     return True
 
 
