@@ -1,46 +1,46 @@
 from utils import html_to_soup, url_args_parser
-import scrape_category
+# import scrape_category
 
 """
 On entre l'URL du site en entrée
 Le module récupère la liste des URL des categories.
 """
 
-# site_url = 'http://books.toscrape.com/'
+site_url = 'http://books.toscrape.com/'  #  test
 
 
 def main():
-    categories_url = [
-        "http://books.toscrape.com/catalogue/category/books/travel_2/index.html",
-        "http://books.toscrape.com/catalogue/category/books/mystery_3/index.html"
-    ]  #  juste un test
-    for url in categories_url:
-        scrape_category.main()
-        print(url)
-        print("ici")
-    return True
+    category_urls_list = scrape_site(site_url)
+    for category_urls in category_urls_list:
+        pass
+
 """
-    args = url_args_parser()
-    site_url = scrape_site(args.url)
+On donne l'URL du site en entrée de fonction
+Le programme retourne une liste des URLs de toutes les catégories. 
 """
-"""
+
+
 def scrape_site(site_url):
-    category_urls = []
+    category_urls_list = []
     soup = html_to_soup(site_url)
-    side_categories = soup.find_all('div', class_='side_categories')
-    
+    category_urls = soup.select(".nav>li:nth-child(1)>ul:nth-child(2)>li>a")
+    for category_url in category_urls:
+        category_url = category_url['href']
+        category_urls_list.append(category_url)
+    print(category_urls_list)
+    print(len(category_urls_list))
+    return category_urls_list
+
+
+"""
     # trouver comment recuperer les URLS categories : 'ul', class_=nav nav-list, 'a', href=True
     .nav > li:nth-child(1) > ul:nth-child(2) > li:nth-child(1) > a:nth-child(1)
     ex pour 1 : soup.select(".nav>li:nth-child(1)>ul:nth-child(2)>li:nth-child(1)>a:nth-child(1)")
     ex pour tous, à tester : soup.select(".nav>li:nth-child(1)>ul:nth-child(2)>li:nth-child(1)>a")   !!
-
-    for categories in side_categories:
-        categories = soup.find_all('ul', class_='nav-list')
-        for category in categories:
-            url_category = soup.find_all('a', href=True)
-            category_urls.append(url_category)
-    print(category_urls)
-    return category_urls
 """
 
-main()
+"""
+if __name__ == "main":
+    main()
+"""
+scrape_site(site_url)

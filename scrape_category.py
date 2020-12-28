@@ -1,5 +1,5 @@
 from utils import html_to_soup, url_args_parser
-from scrape_book import get_book_infos
+from scrape_book import get_book_infos, write_csv
 from urllib.parse import urljoin
 import requests
 
@@ -8,12 +8,16 @@ import requests
 
 
 def main():
+    book_infos_list = []
     args = url_args_parser()  #  à passer dans scrape_site ensuite
     pagination_pages = get_all_pages_category(args.url)
     relative_books_urls = get_books_urls(pagination_pages)
     absolute_books_urls = reformat_relative_url_to_absolute(relative_books_urls)
-    scrape_category_books(absolute_books_urls)
-
+    for absolute_book_url in absolute_books_urls:
+        book_infos_list.append(get_book_infos(absolute_book_url))
+    for book_infos in book_infos_list:
+        write_csv(book_infos)
+    print(f"{len(book_infos_list)} références copiées")
 
 """
 Recupere toutes les urls des livres pour une page d'une catégorie
@@ -93,9 +97,9 @@ def reformat_relative_url_to_absolute(relative_books_urls):
 
 def scrape_category_books(absolute_books_urls):
     for absolute_book_url in absolute_books_urls:
-        get_book_infos(absolute_book_url)
+        book_infos = get_book_infos(absolute_book_url)
     print(f"Infos récupérées : {len(absolute_books_urls)} réferences insérées")
-    return True
+    return book_infos
 
 
 """

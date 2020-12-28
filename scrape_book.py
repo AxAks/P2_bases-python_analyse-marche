@@ -1,4 +1,4 @@
-from utils import html_to_soup
+from utils import html_to_soup, url_args_parser
 import pandas as pd
 from urllib.parse import urljoin
 
@@ -8,11 +8,12 @@ Récupération des informations d'un livre et ecriture dans un fichier CSV
 """
 
 
-#   book_url = 'http://books.toscrape.com/catalogue/holidays-on-ice_167/index.html'  #  juste pour les tests
+#  book_url = 'http://books.toscrape.com/catalogue/holidays-on-ice_167/index.html'  #  juste pour les tests
 
 
-def main(book_url):
-    print(get_book_infos(book_url))
+def main():
+    args = url_args_parser()
+    print(get_book_infos(args.url))
 
 """
 Prend en entrée l'URL d'une page produit du site et retourne un dictionnaire avec les informations recherchées 
@@ -48,7 +49,6 @@ def get_book_infos(book_url):
     print(f"Infos du Livre récupérées : {title}")
     return book_infos
 
-
 """
 Prend en entrée un dictionnaire et copie les informations dans un fichier CSV
 """
@@ -57,13 +57,14 @@ Prend en entrée un dictionnaire et copie les informations dans un fichier CSV
 def write_csv(book_infos):
     category = book_infos['category']
     nom_fichier = f"./CSV_files/surveillance_prix-{category}.csv"
-    fichier = open(nom_fichier, "a")
-    df = pd.DataFrame(book_infos, index=[1])  #  Indexe les lignes de valeurs à partir de 1
-    df.to_csv(fichier, mode='a', header=False, index=False)  # Ne reserve pas une colonne pour le numéro d'index
-    print(f"Infos du Livre insérées dans le CSV : {book_infos['title']}")
-    print('---')
-    return True
+    with open(nom_fichier, "a") as fichier:
+        df = pd.DataFrame(book_infos, index=[1])  #  Indexe les lignes de valeurs à partir de 1
+        df.to_csv(fichier, mode='a', header=False, index=False)  # Ne reserve pas une colonne pour le numéro d'index
+        print(f"Infos du Livre insérées dans le CSV : {book_infos['title']}")
+        print('---')
 
-
+"""
 if __name__ == "main":
     main()
+"""
+
