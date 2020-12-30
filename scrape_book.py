@@ -1,5 +1,4 @@
 from utils import html_to_soup, url_args_parser
-import pandas as pd
 from urllib.parse import urljoin
 
 """
@@ -49,22 +48,10 @@ def get_book_infos(book_url):
     print(f"Infos du Livre récupérées : {title}")
     return book_infos
 
-"""
-Prend en entrée un dictionnaire et copie les informations dans un fichier CSV
-"""
-
-
-def write_csv(book_infos):
-    category = book_infos['category']
-    nom_fichier = f"./CSV_files/surveillance_prix-{category}.csv"
-    with open(nom_fichier, "a") as fichier:
-        df = pd.DataFrame(book_infos, index=[1])  #  Indexe les lignes de valeurs à partir de 1
-        df.to_csv(fichier, mode='a', header=False, index=False)  # Ne reserve pas une colonne pour le numéro d'index
-        print(f"Infos du Livre insérées dans le CSV : {book_infos['title']}")
-        print('---')
 
 """
 if __name__ == "main":
     main()
 """
 
+#  main()
