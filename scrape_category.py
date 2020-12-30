@@ -10,7 +10,7 @@ import requests
 def main():
     args = url_args_parser()  #  à passer dans scrape_site ensuite
     pagination_pages = get_all_pages_category(args.url)
-    relative_books_urls = get_books_urls(pagination_pages)
+    relative_books_urls = get_category_books_urls(pagination_pages)
     absolute_books_urls = reformat_relative_url_to_absolute(relative_books_urls)
     book_infos_list = add_book_infos_to_list(absolute_books_urls)
     write_csv_loop(book_infos_list)
@@ -58,20 +58,25 @@ pagination_pages = [
 """
 
 
-def get_books_urls(pagination_pages):
+def get_books_urls(page):
     relative_books_urls = []
-    for pages_url in pagination_pages:
-        soup = html_to_soup(pages_url)
-        print(f"Scan de la page : {pages_url}")
-        liens = soup.find_all('a', href=True, title=True)
-        for lien in liens:
-            relative_book_url = {'titre': lien['title'], 'lien': lien['href']}
-            relative_books_urls.append(relative_book_url['lien'])
-            print(f"Titre Récupéré : {relative_book_url['titre']}")
-            print(f"Lien -> {relative_book_url['lien']}")
-            print('---')
+    soup = html_to_soup(page)
+    print(f"Scan de la page : {page}")
+    liens = soup.find_all('a', href=True, title=True)
+    for lien in liens:
+        relative_book_url = {'titre': lien['title'], 'lien': lien['href']}
+        relative_books_urls.append(relative_book_url['lien'])
+        print(f"Titre Récupéré : {relative_book_url['titre']}")
+        print(f"Lien -> {relative_book_url['lien']}")
+        print('---')
     print(f"Nombre de titres trouvés : {len(relative_books_urls)}")
     print('****')
+    return relative_books_urls
+
+
+def get_category_books_urls(pagination_pages):
+    for page in pagination_pages:
+        relative_books_urls = get_books_urls(page)
     return relative_books_urls
 
 

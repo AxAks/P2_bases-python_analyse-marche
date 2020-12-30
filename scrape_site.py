@@ -13,9 +13,10 @@ site_url = 'http://books.toscrape.com/'  #  test
 
 def main():
     relative_category_urls_list = scrape_site(site_url)
-    absolute_category_urls_list = get_absolute_category_urls_list(relative_category_urls_list)
-    all_pages_site = get_category_pagination_pages(absolute_category_urls_list)
-    relative_books_urls_list = get_relative_books_urls_list(all_pages_site) # est ce que je recupere bien toutes les pages URLs livre ???
+    absolute_category_urls_list = get_absolute_category_urls_list(relative_category_urls_list) # liste des URL categories index
+    all_categories_pages_list = get_category_pagination_pages(absolute_category_urls_list)  #  liste de listes des URL des différentes pages categories (pas juste une liste de str!!!
+    all_pages_list = reformat_category_pages_list(all_categories_pages_list)
+    relative_books_urls_list = get_relative_books_urls_list(all_pages_list)
     absolute_books_urls_list = relative_to_absolute_books_url_list(relative_books_urls_list)
     book_infos_list = get_all_books_infos_list(absolute_books_urls_list)
     write_csv_loop(book_infos_list)
@@ -59,22 +60,21 @@ On recupère les URLs de toutes les pages pour chaque categorie.
 
 
 def get_category_pagination_pages(absolute_category_urls_list):
-    all_pages_site = []
+    all_categories_pages = []
     for absolute_category_url in absolute_category_urls_list:
         category_pagination_pages = get_all_pages_category(absolute_category_url)
-        all_pages_site.append(category_pagination_pages)
+        all_categories_pages.append(category_pagination_pages)
         print(category_pagination_pages)
-        print(all_pages_site)
-    return all_pages_site
+        print(all_categories_pages)
+    return all_categories_pages
 
 
-def get_relative_books_urls_list(all_pages_site):
+def get_relative_books_urls_list(all_pages_list):
     relative_books_urls_list = []
-    for page in all_pages_site:
+    for page in all_pages_list:
         relative_books_urls = get_books_urls(page)
         relative_books_urls_list.append(relative_books_urls)
         print(page)
-        print(all_pages_site)
     print('*****')
     print('*****')
     print(relative_books_urls_list)
@@ -100,8 +100,21 @@ def get_all_books_infos_list(absolute_books_urls_list):
         print('****')
     print('****')
     print(book_infos_list) # mais à la fin je n'ai que 50 entrées dans la liste
+    print(len(book_infos_list))
     return book_infos_list
 
+"""
+transforme la liste de liste en liste simple
+"""
+
+
+def reformat_category_pages_list(all_categories_pages_list):
+    all_pages_list = []
+    for category_pages_list in all_categories_pages_list:
+        for category_page in category_pages_list:
+            all_pages_list.append(category_page)
+    print(all_pages_list)
+    return all_pages_list
 
 """
 if __name__ == "main":
