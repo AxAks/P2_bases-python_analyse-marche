@@ -1,6 +1,7 @@
 from utils import html_to_soup, url_args_parser
 from urllib.parse import urljoin
 import requests
+import os
 
 """
 Récupération des informations d'un livre et ecriture dans un fichier CSV
@@ -55,9 +56,12 @@ absolute_image_url = 'http://books.toscrape.com/media/cache/57/4c/574cbab555bb7d
 
 
 def save_book_cover(absolute_image_url):
+    category = get_book_infos(book_url)['category']
     book_title = get_book_infos(book_url)['title']
+    fichier = f'Book_covers/{category}/{book_title}-cover.jpg'
     book_cover = requests.get(absolute_image_url).content
-    with open(f'{book_title}-cover.jpg', 'wb') as handler:
+    os.makedirs(os.path.dirname(fichier), exist_ok=True)
+    with open(fichier, 'wb') as handler:
         handler.write(book_cover)
 
 
@@ -65,4 +69,4 @@ if __name__ == "main":
     main()
 
 
-main()
+save_book_cover(absolute_image_url)
