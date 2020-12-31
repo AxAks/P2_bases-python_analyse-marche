@@ -15,7 +15,6 @@ book_url = 'http://books.toscrape.com/catalogue/holidays-on-ice_167/index.html' 
 def main():
     args = url_args_parser()
     print(get_book_infos(args.url))
-    save_book_cover(absolute_image_url)
 
 """
 Prend en entrée l'URL d'une page produit du site et retourne un dictionnaire avec les informations recherchées 
@@ -54,7 +53,7 @@ def get_book_infos(book_url):
     with open(fichier, 'wb') as handler:
         handler.write(book_cover)
     print(f"Infos du Livre récupérées : {title}")
-    print(f"image du Livre copiée dans Book_covers/{category}/")
+    print(f"image du Livre copiée dans ./Book_covers/{category}/")
     return book_infos
 
 
