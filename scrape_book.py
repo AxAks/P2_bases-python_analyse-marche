@@ -1,5 +1,6 @@
 from utils import html_to_soup, url_args_parser
 from urllib.parse import urljoin
+import requests
 
 """
 Récupération des informations d'un livre et ecriture dans un fichier CSV
@@ -7,13 +8,13 @@ Récupération des informations d'un livre et ecriture dans un fichier CSV
 """
 
 
-#  book_url = 'http://books.toscrape.com/catalogue/holidays-on-ice_167/index.html'  #  juste pour les tests
+book_url = 'http://books.toscrape.com/catalogue/holidays-on-ice_167/index.html'  #  juste pour les tests
 
 
 def main():
     args = url_args_parser()
     print(get_book_infos(args.url))
-
+    save_book_cover(absolute_image_url)
 
 """
 Prend en entrée l'URL d'une page produit du site et retourne un dictionnaire avec les informations recherchées 
@@ -50,5 +51,18 @@ def get_book_infos(book_url):
     return book_infos
 
 
+absolute_image_url = 'http://books.toscrape.com/media/cache/57/4c/574cbab555bb7d21e50b20267383e45d.jpg'  #  test
+
+
+def save_book_cover(absolute_image_url):
+    book_title = get_book_infos(book_url)['title']
+    book_cover = requests.get(absolute_image_url).content
+    with open(f'{book_title}-cover.jpg', 'wb') as handler:
+        handler.write(book_cover)
+
+
 if __name__ == "main":
     main()
+
+
+main()
