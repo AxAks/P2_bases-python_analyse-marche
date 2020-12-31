@@ -14,6 +14,7 @@ def main():
     args = url_args_parser()
     print(get_book_infos(args.url))
 
+
 """
 Prend en entrée l'URL d'une page produit du site et retourne un dictionnaire avec les informations recherchées 
 """
@@ -49,9 +50,5 @@ def get_book_infos(book_url):
     return book_infos
 
 
-"""
 if __name__ == "main":
     main()
-"""
-
-#  main()

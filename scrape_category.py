@@ -1,4 +1,4 @@
-from utils import html_to_soup, url_args_parser, write_csv_loop
+from utils import html_to_soup, url_args_parser, list_of_lists_to_flat_list, write_csv_loop
 from scrape_book import get_book_infos
 from urllib.parse import urljoin
 import requests
@@ -11,10 +11,12 @@ def main():
     args = url_args_parser()  #  à passer dans scrape_site ensuite
     pagination_pages = get_all_pages_category(args.url)
     relative_books_urls_list = get_category_books_urls(pagination_pages)
-    absolute_books_urls = reformat_relative_url_to_absolute(relative_books_urls_list)
+    relative_books_urls = list_of_lists_to_flat_list(relative_books_urls_list)
+    absolute_books_urls = reformat_list_of_relative_urls_to_absolute(relative_books_urls)
     book_infos_list = add_book_infos_to_list(absolute_books_urls)
     write_csv_loop(book_infos_list)
     print(f"{len(book_infos_list)} références copiées")
+
 
 """
 Recupere toutes les urls des livres pour une page d'une catégorie
@@ -49,14 +51,6 @@ def get_all_pages_category(url):
     print('****')
     return pagination_pages
 
-"""
-# pour test
-pagination_pages = [
- 'http://books.toscrape.com/catalogue/category/books/default_15/page-1.html',
- 'http://books.toscrape.com/catalogue/category/books/default_15/page-2.html'
- ]
-"""
-
 
 def get_books_urls(page):
     relative_books_urls = []
@@ -83,16 +77,19 @@ def get_category_books_urls(pagination_pages):
 
 
 """
-Reformate une URLs relative en URL absolue depuis la racine du site
+Reformate une liste d'URLs relatives en liste d'URLs absolues depuis la racine du site
 """
 
 
-def reformat_relative_url_to_absolute(relative_url):
-    relative_url = relative_url.replace(relative_url[:9], '')
-    absolute_url = urljoin("http://books.toscrape.com/catalogue/", relative_url)
-    print(f"{len(absolute_url)} liens ont été reformatés")
-    print('****')
-    return absolute_url
+def reformat_list_of_relative_urls_to_absolute(relative_urls):
+    absolute_urls_list = []
+    for relative_url in relative_urls:
+        relative_url = relative_url.replace(relative_url[:9], '')
+        absolute_url = urljoin("http://books.toscrape.com/catalogue/", relative_url)
+        absolute_urls_list.append(absolute_url)
+        print(f"{len(absolute_urls_list)} liens ont été reformatés")
+        print('****')
+    return absolute_urls_list
 
 
 def scrape_category_books(absolute_book_url):
@@ -108,7 +105,5 @@ def add_book_infos_to_list(absolute_books_urls):
     return book_infos_list
 
 
-"""
 if __name__ == "main":
     main()
-"""
