@@ -83,26 +83,21 @@ def get_category_books_urls(pagination_pages):
 
 
 """
-Reformate les URLs relatives d'une liste en URL absolues depuis la racine du site
+Reformate une URLs relative en URL absolue depuis la racine du site
 """
 
 
-def reformat_relative_url_to_absolute(pages_relative_urls_list):
-    absolute_urls = []
-    for relative_urls in pages_relative_urls_list:
-        for relative_url in relative_urls:
-            relative_url = relative_url.replace(relative_url[:9], '')
-            absolute_url = urljoin("http://books.toscrape.com/catalogue/", relative_url)
-            absolute_urls.append(absolute_url)
-    print(f"{len(absolute_urls)} liens ont été reformatés")
+def reformat_relative_url_to_absolute(relative_url):
+    relative_url = relative_url.replace(relative_url[:9], '')
+    absolute_url = urljoin("http://books.toscrape.com/catalogue/", relative_url)
+    print(f"{len(absolute_url)} liens ont été reformatés")
     print('****')
-    return absolute_urls
+    return absolute_url
 
 
-def scrape_category_books(absolute_books_urls):
-    for absolute_book_url in absolute_books_urls:
-        book_infos = get_book_infos(absolute_book_url)
-    print(f"Infos récupérées : {len(absolute_books_urls)} réferences insérées")
+def scrape_category_books(absolute_book_url):
+    book_infos = get_book_infos(absolute_book_url)
+    print(f"Infos récupérées : {len(absolute_book_url)} réferences insérées")
     return book_infos
 
 
@@ -117,5 +112,3 @@ def add_book_infos_to_list(absolute_books_urls):
 if __name__ == "main":
     main()
 """
-
-main()

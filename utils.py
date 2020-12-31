@@ -50,3 +50,17 @@ def write_csv(book_infos):
 def write_csv_loop(book_infos_list): #  doublon category et site + la write_csv de scrape_book , #  à mettre dans utils.py ?
     for book_infos in book_infos_list:
         write_csv(book_infos)
+
+
+"""
+transforme la liste de liste d'URLs en liste d'URLs simple
+"""
+
+
+def list_of_lists_to_flat_list(list_of_lists):
+    flat_list = []
+    for list in list_of_lists:
+        for item in list:
+            flat_list.append(item)
+    print(flat_list)
+    return flat_list
