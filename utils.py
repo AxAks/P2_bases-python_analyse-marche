@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup as bs
 import pandas as pd
 import argparse
+import os
 
 """
 fichier général de fonctions  réutilisables 
@@ -39,8 +40,9 @@ Prend en entrée un dictionnaire et copie les informations dans un fichier CSV.
 
 def write_csv(book_infos):
     category = book_infos['category']
-    nom_fichier = f"./CSV_files/surveillance_prix-{category}.csv"
-    with open(nom_fichier, "a") as fichier:
+    fichier = f"./references_per_category/{category}-prices_watch.csv"
+    os.makedirs(os.path.dirname(fichier), exist_ok=True)
+    with open(fichier, "a") as fichier:
         df = pd.DataFrame(book_infos, index=[1])
         df.to_csv(fichier, mode='a', header=False, index=False)
         print(f"Infos du Livre insérées dans le CSV : {book_infos['title']}")
@@ -66,8 +68,8 @@ transforme la liste de liste d'URLs en liste d'URLs simple
 
 def list_of_lists_to_flat_list(list_of_lists):
     flat_list = []
-    for list in list_of_lists:
-        for item in list:
+    for liste in list_of_lists:
+        for item in liste:
             flat_list.append(item)
     print(flat_list)
     return flat_list

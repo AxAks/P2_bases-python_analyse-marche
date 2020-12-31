@@ -12,16 +12,15 @@ et les copie dans un fichier distinct selon la categorie du livre.
 site_url = 'http://books.toscrape.com/'  #  test
 
 
-"""
+
 absolute_category_urls_list = ['http://books.toscrape.com/catalogue/category/books/mystery_3/index.html',
                                    'http://books.toscrape.com/catalogue/category/books/romance_8/index.html'
                                    ] # valeurs tests
-"""
 
 
 def main():
-    relative_category_urls_list = scrape_site(site_url)
-    absolute_category_urls_list = get_absolute_category_urls_list(relative_category_urls_list)
+    #  relative_category_urls_list = scrape_site(site_url)
+    #  absolute_category_urls_list = get_absolute_category_urls_list(relative_category_urls_list)
     all_categories_pages_list = get_category_pagination_pages(absolute_category_urls_list)
     all_pages_list = list_of_lists_to_flat_list(all_categories_pages_list)
     relative_books_urls_lists = get_relative_books_urls_list(all_pages_list)

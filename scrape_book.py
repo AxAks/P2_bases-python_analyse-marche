@@ -52,12 +52,10 @@ def get_book_infos(book_url):
     os.makedirs(os.path.dirname(fichier), exist_ok=True)
     with open(fichier, 'wb') as handler:
         handler.write(book_cover)
-    print(f"Infos du Livre récupérées : {title}")
-    print(f"image du Livre copiée dans ./Book_covers/{category}/")
+        print(f'Infos du Livre "{title}" récupérées')
+        print(f"image du Livre copiée dans ./Book_covers/{category}/")
     return book_infos
 
 
 if __name__ == "main":
     main()
-
-main()
