@@ -48,25 +48,17 @@ def get_book_infos(book_url):
         'review_rating': review_rating,
         'image_url': absolute_image_url
     }
-    print(f"Infos du Livre récupérées : {title}")
-    return book_infos
-
-
-absolute_image_url = 'http://books.toscrape.com/media/cache/57/4c/574cbab555bb7d21e50b20267383e45d.jpg'  #  test
-
-
-def save_book_cover(absolute_image_url):
-    category = get_book_infos(book_url)['category']
-    book_title = get_book_infos(book_url)['title']
-    fichier = f'Book_covers/{category}/{book_title}-cover.jpg'
+    fichier = f'Book_covers/{category}/{title}-cover.jpg'
     book_cover = requests.get(absolute_image_url).content
     os.makedirs(os.path.dirname(fichier), exist_ok=True)
     with open(fichier, 'wb') as handler:
         handler.write(book_cover)
+    print(f"Infos du Livre récupérées : {title}")
+    print(f"image du Livre copiée dans Book_covers/{category}/")
+    return book_infos
 
 
 if __name__ == "main":
     main()
 
-
-save_book_cover(absolute_image_url)
+main()
