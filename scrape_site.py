@@ -2,6 +2,7 @@ from utils import html_to_soup, write_csv_loop, list_of_lists_to_flat_list
 from urllib.parse import urljoin
 from scrape_category import get_all_pages_category,\
     get_books_urls, scrape_category_books
+from datetime import datetime
 
 """
 On entre l'URL du site en entrée
@@ -12,15 +13,17 @@ et les copie dans un fichier distinct selon la categorie du livre.
 site_url = 'http://books.toscrape.com/'  #  test
 
 
-
+"""
 absolute_category_urls_list = ['http://books.toscrape.com/catalogue/category/books/mystery_3/index.html',
                                    'http://books.toscrape.com/catalogue/category/books/romance_8/index.html'
                                    ] # valeurs tests
+"""
 
 
 def main():
-    #  relative_category_urls_list = scrape_site(site_url)
-    #  absolute_category_urls_list = get_absolute_category_urls_list(relative_category_urls_list)
+    timestamp_start = datetime.now()
+    relative_category_urls_list = scrape_site(site_url)
+    absolute_category_urls_list = get_absolute_category_urls_list(relative_category_urls_list)
     all_categories_pages_list = get_category_pagination_pages(absolute_category_urls_list)
     all_pages_list = list_of_lists_to_flat_list(all_categories_pages_list)
     relative_books_urls_lists = get_relative_books_urls_list(all_pages_list)
@@ -29,8 +32,8 @@ def main():
     book_infos_list = get_all_books_infos_list(absolute_books_urls_list)
     write_csv_loop(book_infos_list)
     print(f"{len(book_infos_list)} références copiées")
-
-
+    execution_time = datetime.now() - timestamp_start
+    print(f" le programme met {execution_time} pour s'executer")
 """
 On donne l'URL du site en entrée de fonction
 Le programme retourne une liste des URLs de toutes les catégories. 
