@@ -105,5 +105,5 @@ def add_book_infos_to_list(absolute_books_urls):
     return book_infos_list
 
 
-if __name__ == "main":
+if __name__ == "__main__":
     main()

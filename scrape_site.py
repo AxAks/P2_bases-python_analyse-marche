@@ -12,11 +12,10 @@ et les copie dans un fichier distinct selon la categorie du livre.
 
 site_url = 'http://books.toscrape.com/'  #  test
 
-
 """
 absolute_category_urls_list = ['http://books.toscrape.com/catalogue/category/books/mystery_3/index.html',
-                                   'http://books.toscrape.com/catalogue/category/books/romance_8/index.html'
-                                   ] # valeurs tests
+                               'http://books.toscrape.com/catalogue/category/books/romance_8/index.html'
+                               ] # valeurs tests
 """
 
 
@@ -34,6 +33,8 @@ def main():
     print(f"{len(book_infos_list)} références copiées")
     execution_time = datetime.now() - timestamp_start
     print(f" le programme met {execution_time} pour s'executer")
+
+
 """
 On donne l'URL du site en entrée de fonction
 Le programme retourne une liste des URLs de toutes les catégories. 
@@ -125,8 +126,6 @@ def get_all_books_infos_list(absolute_books_urls_list):
     return book_infos_list
 
 
-"""
-if __name__ == "main":
+if __name__ == "__main__":
     main()
-"""
-main()
+
