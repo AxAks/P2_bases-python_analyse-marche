@@ -4,9 +4,6 @@ from urllib.parse import urljoin, urlsplit
 import requests
 
 
-# url = "http://books.toscrape.com/catalogue/category/books/default_15/index.html" #  pour tests
-
-
 """
 Recupere toutes les urls des livres pour une page Catégorie donnée
 en récupère les informations
@@ -16,7 +13,7 @@ tout en enregistrant les images de couvertures des livres dans un dossier spéci
 
 
 def main():
-    args = url_args_parser()  #  à passer dans scrape_site ensuite
+    args = url_args_parser()
     pagination_pages = get_all_pages_category(args.url)
     relative_books_urls_list = get_category_books_urls(pagination_pages)
     relative_books_urls = list_of_lists_to_flat_list(relative_books_urls_list)
@@ -105,16 +102,6 @@ def reformat_list_of_relative_urls_to_absolute(relative_urls):
     print(f"{len(absolute_urls_list)} liens ont été reformatés")
     print("---")
     return absolute_urls_list
-
-
-"""
-Récupère les informations d'un livre à partir de son URL.
-"""
-
-
-def scrape_category_books(absolute_book_url):
-    book_infos = get_book_infos(absolute_book_url)
-    return book_infos
 
 
 """

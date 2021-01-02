@@ -1,7 +1,8 @@
 from utils import html_to_soup, write_csv_loop, list_of_lists_to_flat_list
 from urllib.parse import urljoin
 from scrape_category import get_all_pages_category, \
-    get_books_urls, scrape_category_books
+    get_books_urls
+from scrape_book import get_book_infos
 from datetime import datetime
 
 """
@@ -10,7 +11,6 @@ Le programme permet de récupèrer les informations de toutes les références d
 copie ces informations dans un fichier CSV d'après la catégorie du livre
 et télécharge l'image de couverture du livre dans un dossier dédiée à sa catégorie
 """
-
 
 """
 absolute_category_urls_list = ['http://books.toscrape.com/catalogue/category/books/mystery_3/index.html',
@@ -129,7 +129,7 @@ Permet de récupérer les informations des livres à partir de la liste de leurs
 def get_all_books_infos_list(absolute_books_urls_list):
     book_infos_list = []
     for absolute_book_url in absolute_books_urls_list:
-        book_infos = scrape_category_books(absolute_book_url)
+        book_infos = get_book_infos(absolute_book_url)
         book_infos_list.append(book_infos)
     return book_infos_list
 

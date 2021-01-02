@@ -4,12 +4,8 @@ import requests
 import os
 
 """
-Récupération des informations d'un livre et ecriture dans un fichier CSV
-(Ne se lance pas seul, il doit etre appelé par une autre fonction avec une URL de page produit en argument)
+Récupération des informations d'un livre et affichage du résultat à l'écran.
 """
-
-
-# book_url = 'http://books.toscrape.com/catalogue/holidays-on-ice_167/index.html'  #  juste pour les tests
 
 
 """
@@ -23,6 +19,7 @@ et affiche les informations à l'ecran
 def main():
     args = url_args_parser()
     print(get_book_infos(args.url))
+
 
 """
 Prend en entrée l'URL d'une page produit du site et retourne un dictionnaire avec les informations recherchées.
