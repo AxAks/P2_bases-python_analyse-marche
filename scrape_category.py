@@ -23,7 +23,6 @@ def main():
     absolute_books_urls = reformat_list_of_relative_urls_to_absolute(relative_books_urls)
     book_infos_list = add_book_infos_to_list(absolute_books_urls)
     write_csv_loop(book_infos_list)
-    print(f"{len(book_infos_list)} références copiées")
 
 
 """
