@@ -9,7 +9,15 @@ Récupération des informations d'un livre et ecriture dans un fichier CSV
 """
 
 
-book_url = 'http://books.toscrape.com/catalogue/holidays-on-ice_167/index.html'  #  juste pour les tests
+# book_url = 'http://books.toscrape.com/catalogue/holidays-on-ice_167/index.html'  #  juste pour les tests
+
+
+"""
+Prend en paramètre une URL de page produit
+Récupère les informations de cette référence
+Télécharge l'image de couverture
+et affiche les informations à l'ecran 
+"""
 
 
 def main():
@@ -17,7 +25,7 @@ def main():
     print(get_book_infos(args.url))
 
 """
-Prend en entrée l'URL d'une page produit du site et retourne un dictionnaire avec les informations recherchées 
+Prend en entrée l'URL d'une page produit du site et retourne un dictionnaire avec les informations recherchées.
 """
 
 
@@ -52,8 +60,8 @@ def get_book_infos(book_url):
     os.makedirs(os.path.dirname(fichier), exist_ok=True)
     with open(fichier, 'wb') as handler:
         handler.write(book_cover)
-        print(f'Infos du Livre "{title}" récupérées')
-        print(f"image du Livre copiée dans ./Book_covers/{category}/")
+        print(f"Infos du livre \"{title}\" récupérées ->"
+              f" L'image de couverture a été copiée dans ./Book_covers/{category}/")
     return book_infos
 
 

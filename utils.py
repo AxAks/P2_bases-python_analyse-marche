@@ -5,14 +5,12 @@ import argparse
 import os
 
 """
-fichier général de fonctions  réutilisables 
+Fichier général de fonctions  réutilisables 
 """
 
 
 """
-Verifie le code statut de la requete si 200 tout est OK
-Récupère le contenu brut de la page
-Transforme le contenu brut en format BeautifulSoup
+Transforme le contenu d'une page web en format BeautifulSoup.
 """
 
 
@@ -24,6 +22,11 @@ def html_to_soup(book_url):
     byte_data = response.content
     soup = bs(byte_data, 'lxml')
     return soup
+
+
+"""
+Permet de lancer le script depuis le terminal bash en mentionnant une URL en tant qu'argument. 
+"""
 
 
 def url_args_parser():
@@ -45,8 +48,6 @@ def write_csv(book_infos):
     with open(fichier, "a") as fichier:
         df = pd.DataFrame(book_infos, index=[1])
         df.to_csv(fichier, mode='a', header=False, index=False)
-        print(f"Infos du Livre insérées dans le CSV : {book_infos['title']}")
-        print('---')
 
 
 """
@@ -58,7 +59,7 @@ Utilise write_csv.
 def write_csv_loop(book_infos_list):
     for book_infos in book_infos_list:
         write_csv(book_infos)
-        print(book_infos)
+    print(f"{len(book_infos_list)} références copiées dans le fichier CSV")
 
 
 """
@@ -71,5 +72,4 @@ def list_of_lists_to_flat_list(list_of_lists):
     for liste in list_of_lists:
         for item in liste:
             flat_list.append(item)
-    print(flat_list)
     return flat_list
