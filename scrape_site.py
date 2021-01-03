@@ -2,13 +2,13 @@ from datetime import datetime
 from urllib.parse import urljoin
 from utils import html_to_soup, write_csv_loop, list_of_lists_to_flat_list
 from scrape_category import get_all_pages_category, \
-    get_books_urls, reformat_list_of_relative_urls_to_absolute, add_book_infos_to_list
+    get_category_books_urls, reformat_list_of_relative_urls_to_absolute, add_book_infos_to_list
 
-"""
+
 absolute_category_urls_list = ['http://books.toscrape.com/catalogue/category/books/mystery_3/index.html',
-                               'http://books.toscrape.com/catalogue/category/books/romance_8/index.html'
+                               'http://books.toscrape.com/catalogue/category/books/travel_2/index.html'
                                ]  #  valeurs tests
-"""
+
 
 
 def main():
@@ -19,11 +19,11 @@ def main():
     """
     timestamp_start = datetime.now()
     site_url = 'http://books.toscrape.com/'
-    relative_category_urls_list = scrape_site(site_url)
-    absolute_category_urls_list = get_absolute_category_urls_list(relative_category_urls_list)
+    # relative_category_urls_list = scrape_site(site_url)
+    # absolute_category_urls_list = get_absolute_category_urls_list(relative_category_urls_list)
     all_categories_pages_list = get_category_pagination_pages(absolute_category_urls_list)
     all_pages_list = list_of_lists_to_flat_list(all_categories_pages_list)
-    relative_books_urls_lists = get_relative_books_urls_list(all_pages_list)
+    relative_books_urls_lists = get_category_books_urls(all_pages_list)
     relative_books_urls_list = list_of_lists_to_flat_list(relative_books_urls_lists)
     absolute_books_urls_list = reformat_list_of_relative_urls_to_absolute(relative_books_urls_list)
     book_infos_list = add_book_infos_to_list(absolute_books_urls_list)
@@ -62,15 +62,6 @@ def get_category_pagination_pages(absolute_category_urls_list):
     all_categories_pages = [get_all_pages_category(absolute_category_url)
                             for absolute_category_url in absolute_category_urls_list]
     return all_categories_pages
-
-
-def get_relative_books_urls_list(all_pages_list):
-    """
-    Permet de récupérer une liste de toutes les URLs relatives des des pages produit à partir
-    d'une liste des différentes pages de categorie.
-    """
-    relative_books_urls_list = [get_books_urls(page) for page in all_pages_list]
-    return relative_books_urls_list
 
 
 if __name__ == "__main__":
