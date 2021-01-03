@@ -95,7 +95,7 @@ def reformat_relative_url_to_absolute(relative_url):
     """
     Reformate une URL relative en URL absolue depuis la racine du site
     """
-    relative_url = relative_url.lstrip('../')
+    relative_url = relative_url['lien'].lstrip('../')
     absolute_url = urljoin("http://books.toscrape.com/catalogue/", relative_url)
     return absolute_url
 
