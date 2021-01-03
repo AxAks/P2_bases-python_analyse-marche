@@ -4,11 +4,11 @@ from utils import html_to_soup, write_csv_loop, list_of_lists_to_flat_list
 from scrape_category import get_all_pages_category, \
     get_category_books_urls, reformat_list_of_relative_urls_to_absolute, add_book_infos_to_list
 
-
+"""
 absolute_category_urls_list = ['http://books.toscrape.com/catalogue/category/books/mystery_3/index.html',
                                'http://books.toscrape.com/catalogue/category/books/travel_2/index.html'
                                ]  #  valeurs tests
-
+"""
 
 
 def main():
@@ -19,8 +19,8 @@ def main():
     """
     timestamp_start = datetime.now()
     site_url = 'http://books.toscrape.com/'
-    # relative_category_urls_list = scrape_site(site_url)
-    # absolute_category_urls_list = get_absolute_category_urls_list(relative_category_urls_list)
+    relative_category_urls_list = scrape_site(site_url)
+    absolute_category_urls_list = get_absolute_category_urls_list(relative_category_urls_list)
     all_categories_pages_list = get_category_pagination_pages(absolute_category_urls_list)
     all_pages_list = list_of_lists_to_flat_list(all_categories_pages_list)
     relative_books_urls_lists = get_category_books_urls(all_pages_list)

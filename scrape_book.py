@@ -45,7 +45,7 @@ def get_book_infos(book_url):
         'review_rating': review_rating,
         'image_url': absolute_image_url
     }
-    fichier = f'Book_covers/{category}/{title}-cover.jpg'
+    fichier = f"Book_covers/{category}/{title.replace('/', ' - ')}-cover.jpg"
     book_cover = requests.get(absolute_image_url).content
     os.makedirs(os.path.dirname(fichier), exist_ok=True)
     with open(fichier, 'wb') as handler:
