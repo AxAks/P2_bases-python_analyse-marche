@@ -1,8 +1,8 @@
 from datetime import datetime
 from urllib.parse import urljoin
-from utils import html_to_soup, write_csv_loop, list_of_lists_to_flat_list
+from utils import html_to_soup, list_of_lists_to_flat_list
 from scrape_category import get_all_pages_category, \
-    get_category_books_urls, reformat_list_of_relative_urls_to_absolute, add_book_infos_to_list
+    get_category_books_urls, reformat_list_of_relative_urls_to_absolute, add_book_infos_to_list, write_csv_loop
 
 """
 absolute_category_urls_list = ['http://books.toscrape.com/catalogue/category/books/mystery_3/index.html',
@@ -48,7 +48,7 @@ def get_absolute_category_urls_list(relative_category_urls_list):
     """
     Reformate les URLs Categories relatives en URLs Absolues.
     """
-    site_url = 'http://books.toscrape.com/'  # test
+    site_url = 'http://books.toscrape.com/'
     absolute_category_urls_list = [urljoin(site_url, relative_category_url)
                                    for relative_category_url in relative_category_urls_list]
     return absolute_category_urls_list

@@ -1,7 +1,7 @@
 import requests
 from urllib.parse import urljoin, urlsplit
-from utils import html_to_soup, url_args_parser, list_of_lists_to_flat_list, write_csv_loop
-from scrape_book import get_book_infos
+from utils import html_to_soup, url_args_parser, list_of_lists_to_flat_list
+from scrape_book import get_book_infos, write_csv
 
 
 def main():
@@ -90,6 +90,17 @@ def add_book_infos_to_list(absolute_books_urls):
     """
     book_infos_list = [get_book_infos(absolute_book_url) for absolute_book_url in absolute_books_urls]
     return book_infos_list
+
+
+def write_csv_loop(book_infos_list):
+    """
+    Boucle pour ecrire un dictionnaire de données dans un fichier CSV
+    Utilise write_csv.
+    """
+    for book_infos in book_infos_list:
+        write_csv(book_infos)
+    print('---')
+    print(f"{len(book_infos_list)} références copiées dans le fichier CSV")
 
 
 if __name__ == "__main__":

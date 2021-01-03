@@ -1,5 +1,6 @@
 import requests
 import os
+import pandas as pd
 from utils import html_to_soup, url_args_parser
 from urllib.parse import urljoin
 
@@ -52,6 +53,24 @@ def get_book_infos(book_url):
         print(f"Infos du livre \"{title}\" récupérées ->"
               f" L'image de couverture a été copiée dans ./Book_covers/{category}/")
     return book_infos
+
+
+def write_csv(book_infos):
+    """
+    Prend en entrée un dictionnaire et copie les informations dans un fichier CSV.
+    """
+    category = book_infos['category']
+    fichier = f"./references_per_category/{category}-prices_watch.csv"
+    os.makedirs(os.path.dirname(fichier), exist_ok=True)
+    if not os.path.exists(fichier):
+        columns = ['product_page_url', 'universal_product_code',
+                   'title', 'price_including_tax', 'price_excluding_tax',
+                   'number_available', 'product_description', 'category', 'review_rating', 'image_url']
+        with open(fichier, mode='w', encoding='utf-8') as f:
+            f.write(','.join(columns) + '\n')
+    with open(fichier, "a") as fichier:
+        df = pd.DataFrame(book_infos, index=[1])
+        df.to_csv(fichier, encoding='utf-8', mode="a", header=False, index=False)
 
 
 if __name__ == "__main__":

@@ -1,8 +1,6 @@
 import requests
 from bs4 import BeautifulSoup as bs
-import pandas as pd
 import argparse
-import os
 
 """
 Fichier général de fonctions  réutilisables 
@@ -31,34 +29,6 @@ def url_args_parser():
     args = parser.parse_args()
     return args
 
-
-def write_csv(book_infos):
-    """
-    Prend en entrée un dictionnaire et copie les informations dans un fichier CSV.
-    """
-    category = book_infos['category']
-    fichier = f"./references_per_category/{category}-prices_watch.csv"
-    os.makedirs(os.path.dirname(fichier), exist_ok=True)
-    if not os.path.exists(fichier):
-        columns = ['product_page_url', 'universal_product_code',
-                   'title', 'price_including_tax', 'price_excluding_tax',
-                   'number_available', 'product_description', 'category', 'review_rating', 'image_url']
-        with open(fichier, mode='w', encoding='utf-8') as f:
-            f.write(','.join(columns) + '\n')
-    with open(fichier, "a") as fichier:
-        df = pd.DataFrame(book_infos, index=[1])
-        df.to_csv(fichier, encoding='utf-8', mode="a", header=False, index=False)
-
-
-def write_csv_loop(book_infos_list):
-    """
-    Boucle pour ecrire un dictionnaire de données dans un fichier CSV
-    Utilise write_csv.
-    """
-    for book_infos in book_infos_list:
-        write_csv(book_infos)
-    print('---')
-    print(f"{len(book_infos_list)} références copiées dans le fichier CSV")
 
 
 def list_of_lists_to_flat_list(list_of_lists):
