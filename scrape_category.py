@@ -54,15 +54,10 @@ def get_books_urls(page):
     Récupère les URLs relatives des pages produit sur une page catégorie
     et les ajoute dans une liste.
     """
-    relative_books_urls = []
     soup = html_to_soup(page)
-    print(f"Scan des URLs Produit de la page : {page}")
     liens = soup.find_all('a', href=True, title=True)
-    for lien in liens:
-        relative_book_url = {'titre': lien['title'], 'lien': lien['href']}
-        relative_books_urls.append(relative_book_url['lien'])
-        print(f"- URL récupérée pour le titre : {relative_book_url['titre']}")
-    print("---")
+    print(f"Scan des URLs Produit de la page : {page}")
+    relative_books_urls = [{'titre': lien['title'], 'lien': lien['href']} for lien in liens]
     print(f"Nombre de titres trouvés sur la page : {len(relative_books_urls)}")
     print("---")
     return relative_books_urls
@@ -73,10 +68,7 @@ def get_category_books_urls(pagination_pages):
     Récupère les URLs relatives des pages produit de toutes les pages d'une catégorie
     et les ajoute à une liste.
     """
-    relative_books_urls_list = []
-    for page in pagination_pages:
-        relative_books_urls = get_books_urls(page)
-        relative_books_urls_list.append(relative_books_urls)
+    relative_books_urls_list = [get_books_urls(page) for page in pagination_pages]
     return relative_books_urls_list
 
 
@@ -84,11 +76,8 @@ def reformat_list_of_relative_urls_to_absolute(relative_urls):
     """
     Reformate une liste d'URLs relatives en liste d'URLs absolues depuis la racine du site
     """
-    absolute_urls_list = []
-    for relative_url in relative_urls:
-        relative_url = relative_url.lstrip('../')
-        absolute_url = urljoin("http://books.toscrape.com/catalogue/", relative_url)
-        absolute_urls_list.append(absolute_url)
+    absolute_urls_list = [urljoin("http://books.toscrape.com/catalogue/", relative_url['lien'].lstrip('../'))
+                          for relative_url in relative_urls]
     print(f"{len(absolute_urls_list)} liens ont été reformatés")
     print("---")
     return absolute_urls_list
@@ -99,10 +88,7 @@ def add_book_infos_to_list(absolute_books_urls):
     Pour une liste d'URLs produit, récupère les informations de chaque livre sous forme de dictionnaire
     et les ajoute à une liste
     """
-    book_infos_list = []
-    for absolute_book_url in absolute_books_urls:
-        book_infos = get_book_infos(absolute_book_url)
-        book_infos_list.append(book_infos)
+    book_infos_list = [get_book_infos(absolute_book_url) for absolute_book_url in absolute_books_urls]
     return book_infos_list
 
 

@@ -5,12 +5,9 @@ from scrape_category import get_all_pages_category, \
 from scrape_book import get_book_infos
 from datetime import datetime
 
-
-"""
 absolute_category_urls_list = ['http://books.toscrape.com/catalogue/category/books/mystery_3/index.html',
                                'http://books.toscrape.com/catalogue/category/books/romance_8/index.html'
-                               ] # valeurs tests
-"""
+                               ]  #  valeurs tests
 
 
 def main():
@@ -21,8 +18,8 @@ def main():
     """
     timestamp_start = datetime.now()
     site_url = 'http://books.toscrape.com/'
-    relative_category_urls_list = scrape_site(site_url)
-    absolute_category_urls_list = get_absolute_category_urls_list(relative_category_urls_list)
+    # relative_category_urls_list = scrape_site(site_url)
+    #  absolute_category_urls_list = get_absolute_category_urls_list(relative_category_urls_list)
     all_categories_pages_list = get_category_pagination_pages(absolute_category_urls_list)
     all_pages_list = list_of_lists_to_flat_list(all_categories_pages_list)
     relative_books_urls_lists = get_relative_books_urls_list(all_pages_list)
@@ -66,7 +63,7 @@ def get_absolute_category_urls_list(relative_category_urls_list):
 def get_category_pagination_pages(absolute_category_urls_list):
     """
     Permet de vérifier s'il existe plusieurs pages pour une liste d'URLs de categorie
-    et recupèrer les URLs de toutes ces pages.
+    et recupèrer les URLs de toutes ces pages dans une liste de listes.
     """
     all_categories_pages = []
     for absolute_category_url in absolute_category_urls_list:
@@ -80,10 +77,7 @@ def get_relative_books_urls_list(all_pages_list):
     Permet de récupérer une liste de toutes les URLs relatives des des pages produit à partir
     d'une liste des différentes pages de categorie.
     """
-    relative_books_urls_list = []
-    for page in all_pages_list:
-        relative_books_urls = get_books_urls(page)
-        relative_books_urls_list.append(relative_books_urls)
+    relative_books_urls_list = [get_books_urls(page) for page in all_pages_list]
     return relative_books_urls_list
 
 
@@ -92,10 +86,8 @@ def relative_to_absolute_books_url_list(relative_books_urls_list):
     Reformate la liste des URLs relatives récupérées en liste d'URLs absolues
     Boucle sur reformat_relative_url_to_absolute pour créer une nouvelle liste.
     """
-    absolute_book_url_list = []
-    for relative_book_url in relative_books_urls_list:
-        absolute_book_url = reformat_relative_url_to_absolute(relative_book_url)
-        absolute_book_url_list.append(absolute_book_url)
+    absolute_book_url_list = [reformat_relative_url_to_absolute(relative_book_url) for
+                              relative_book_url in relative_books_urls_list]
     return absolute_book_url_list
 
 
@@ -112,10 +104,12 @@ def get_all_books_infos_list(absolute_books_urls_list):
     """
     Permet de récupérer les informations des livres à partir de la liste de leurs URLs
     """
-    book_infos_list = []
+    book_infos_list = [get_book_infos(absolute_book_url) for absolute_book_url in absolute_books_urls_list]
+    """
     for absolute_book_url in absolute_books_urls_list:
         book_infos = get_book_infos(absolute_book_url)
         book_infos_list.append(book_infos)
+    """
     return book_infos_list
 
 
