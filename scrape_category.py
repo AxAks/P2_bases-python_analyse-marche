@@ -1,7 +1,9 @@
+import requests
+from urllib.parse import urljoin, urlsplit
 from utils import html_to_soup, url_args_parser, list_of_lists_to_flat_list, write_csv_loop
 from scrape_book import get_book_infos
-from urllib.parse import urljoin, urlsplit
-import requests
+
+
 
 
 def main():

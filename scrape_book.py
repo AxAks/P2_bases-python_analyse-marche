@@ -1,7 +1,8 @@
-from utils import html_to_soup, url_args_parser
-from urllib.parse import urljoin
 import requests
 import os
+from utils import html_to_soup, url_args_parser
+from urllib.parse import urljoin
+
 
 
 def main():
