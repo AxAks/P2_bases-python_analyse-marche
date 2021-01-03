@@ -3,3 +3,5 @@
 .idea/
 __pycache__/
 algorithme_scrape-category.txt
+Book_covers
+references_per_category
