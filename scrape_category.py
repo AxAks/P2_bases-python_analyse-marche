@@ -4,15 +4,13 @@ from urllib.parse import urljoin, urlsplit
 import requests
 
 
-"""
-Recupere toutes les urls des livres pour une page Catégorie donnée
-en récupère les informations
-et les copie dans un fichier CSV pour cette catégorie 
-tout en enregistrant les images de couvertures des livres dans un dossier spécifique.
-"""
-
-
 def main():
+    """
+    Recupere toutes les urls des livres pour une page Catégorie donnée
+    en récupère les informations
+    et les copie dans un fichier CSV pour cette catégorie
+    tout en enregistrant les images de couvertures des livres dans un dossier spécifique.
+    """
     args = url_args_parser()
     pagination_pages = get_all_pages_category(args.url)
     relative_books_urls_list = get_category_books_urls(pagination_pages)
@@ -22,14 +20,12 @@ def main():
     write_csv_loop(book_infos_list)
 
 
-"""
-Verifie s'il existe plusieurs pages pour une catégorie donnée.
-Ajoute les URLs de toutes les pages de la catégorie à une liste
-Retourne la liste
-"""
-
-
 def get_all_pages_category(url):
+    """
+    Verifie s'il existe plusieurs pages pour une catégorie donnée.
+    Ajoute les URLs de toutes les pages de la catégorie à une liste
+    Retourne la liste
+    """
     parsed_url = urlsplit(url)
     print(f"Récupération de toutes les pages liées à {parsed_url[2]} :")
     pagination_pages = []
@@ -53,13 +49,11 @@ def get_all_pages_category(url):
     return pagination_pages
 
 
-"""
-Récupère les URLs relatives des pages produit sur une page catégorie
-et les ajoute dans une liste.
-"""
-
-
 def get_books_urls(page):
+    """
+    Récupère les URLs relatives des pages produit sur une page catégorie
+    et les ajoute dans une liste.
+    """
     relative_books_urls = []
     soup = html_to_soup(page)
     print(f"Scan des URLs Produit de la page : {page}")
@@ -74,13 +68,11 @@ def get_books_urls(page):
     return relative_books_urls
 
 
-"""
-Récupère les URLs relatives des pages produit de toutes les pages d'une catégorie
-et les ajoute à une liste.
-"""
-
-
 def get_category_books_urls(pagination_pages):
+    """
+    Récupère les URLs relatives des pages produit de toutes les pages d'une catégorie
+    et les ajoute à une liste.
+    """
     relative_books_urls_list = []
     for page in pagination_pages:
         relative_books_urls = get_books_urls(page)
@@ -88,12 +80,10 @@ def get_category_books_urls(pagination_pages):
     return relative_books_urls_list
 
 
-"""
-Reformate une liste d'URLs relatives en liste d'URLs absolues depuis la racine du site
-"""
-
-
 def reformat_list_of_relative_urls_to_absolute(relative_urls):
+    """
+    Reformate une liste d'URLs relatives en liste d'URLs absolues depuis la racine du site
+    """
     absolute_urls_list = []
     for relative_url in relative_urls:
         relative_url = relative_url.replace(relative_url[:9], '')
@@ -104,13 +94,11 @@ def reformat_list_of_relative_urls_to_absolute(relative_urls):
     return absolute_urls_list
 
 
-"""
-Pour une liste d'URLs produit, récupère les informations de chaque livre sous forme de dictionnaire
-et les ajoute à une liste
-"""
-
-
 def add_book_infos_to_list(absolute_books_urls):
+    """
+    Pour une liste d'URLs produit, récupère les informations de chaque livre sous forme de dictionnaire
+    et les ajoute à une liste
+    """
     book_infos_list = []
     for absolute_book_url in absolute_books_urls:
         book_infos = get_book_infos(absolute_book_url)

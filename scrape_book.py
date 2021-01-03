@@ -3,30 +3,22 @@ from urllib.parse import urljoin
 import requests
 import os
 
-"""
-Récupération des informations d'un livre et affichage du résultat à l'écran.
-"""
-
-
-"""
-Prend en paramètre une URL de page produit
-Récupère les informations de cette référence
-Télécharge l'image de couverture
-et affiche les informations à l'ecran 
-"""
-
 
 def main():
+    """
+    Prend en paramètre une URL de page produit
+    Récupère les informations de cette référence
+    Télécharge l'image de couverture
+    et affiche les informations à l'ecran
+    """
     args = url_args_parser()
     print(get_book_infos(args.url))
 
 
-"""
-Prend en entrée l'URL d'une page produit du site et retourne un dictionnaire avec les informations recherchées.
-"""
-
-
 def get_book_infos(book_url):
+    """
+    Prend en entrée l'URL d'une page produit du site et retourne un dictionnaire avec les informations recherchées.
+    """
     soup = html_to_soup(book_url)
     product_page_url = str(book_url)
     universal_product_code = soup.find_all('td')[0].get_text()
