@@ -86,7 +86,7 @@ def reformat_list_of_relative_urls_to_absolute(relative_urls):
     """
     absolute_urls_list = []
     for relative_url in relative_urls:
-        relative_url = relative_url.replace(relative_url[:9], '')
+        relative_url = relative_url.lstrip('../')
         absolute_url = urljoin("http://books.toscrape.com/catalogue/", relative_url)
         absolute_urls_list.append(absolute_url)
     print(f"{len(absolute_urls_list)} liens ont été reformatés")
