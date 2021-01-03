@@ -4,8 +4,6 @@ from utils import html_to_soup, url_args_parser, list_of_lists_to_flat_list, wri
 from scrape_book import get_book_infos
 
 
-
-
 def main():
     """
     Recupere toutes les urls des livres pour une page Catégorie donnée

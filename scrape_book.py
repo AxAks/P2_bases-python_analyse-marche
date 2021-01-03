@@ -4,7 +4,6 @@ from utils import html_to_soup, url_args_parser
 from urllib.parse import urljoin
 
 
-
 def main():
     """
     Prend en paramètre une URL de page produit
