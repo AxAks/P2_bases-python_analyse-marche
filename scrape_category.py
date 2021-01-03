@@ -100,7 +100,7 @@ def write_csv_loop(book_infos_list):
     for book_infos in book_infos_list:
         write_csv(book_infos)
     print('---')
-    print(f"{len(book_infos_list)} références copiées dans le fichier CSV")
+    print(f"{len(book_infos_list)} références copiées")
 
 
 if __name__ == "__main__":
