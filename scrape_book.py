@@ -13,7 +13,19 @@ def main():
     et affiche les informations à l'ecran
     """
     args = url_args_parser()
-    print(get_book_infos(args.url))
+    book_infos = get_book_infos(args.url)
+    print(f" Voici les informations trouvées : \n\n"
+          f"- product_page_url : {book_infos['product_page_url']}\n"
+          f"- universal_product_code : {book_infos['universal_product_code']}\n"
+          f"- title : {book_infos['title']}\n"
+          f"- price_including_tax : {book_infos['price_including_tax']}\n"
+          f"- price_excluding_tax : {book_infos['price_excluding_tax']}\n"
+          f"- number_available : {book_infos['number_available']}\n"
+          f"- product_description : {book_infos['product_description']}\n"
+          f"- category : {book_infos['category']}\n"
+          f"- review_rating : {book_infos['review_rating']}\n"
+          f"- image_url : {book_infos['image_url']}\n"
+          f"- image_local_path : {book_infos['image_local_path']}")
 
 
 def get_book_infos(book_url):
@@ -45,13 +57,14 @@ def get_book_infos(book_url):
         'review_rating': review_rating,
         'image_url': absolute_image_url
     }
-    fichier = f"Book_covers/{category}/{title.replace('/', ' - ')}-cover.jpg"
+    fichier = f"./Book_covers/{category}/{title.replace('/', ' - ')}-cover.jpg"
     book_cover = requests.get(absolute_image_url).content
     os.makedirs(os.path.dirname(fichier), exist_ok=True)
     with open(fichier, 'wb') as handler:
         handler.write(book_cover)
-        print(f"Infos du livre \"{title}\" récupérées ->"
+        print(f"\n Infos du livre \"{title}\" récupérées ->"
               f" L'image de couverture a été copiée dans ./Book_covers/{category}/")
+    book_infos['image_local_path'] = fichier
     return book_infos
 
 
