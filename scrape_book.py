@@ -25,7 +25,7 @@ def main():
           f"- category : {book_infos['category']}\n"
           f"- review_rating : {book_infos['review_rating']}\n"
           f"- image_url : {book_infos['image_url']}\n"
-          f"- image_local_path : {book_infos['image_local_path']}")
+          f"- image_local_path : {book_infos['image_local_path']}\n")
 
 
 def get_book_infos(book_url):
@@ -43,8 +43,9 @@ def get_book_infos(book_url):
     category = soup.find_all('a')[3].get_text()
     review_rating = soup.find_all('p', class_='star-rating')[0].get('class')[1]
     relative_image_url = soup.find('img')['src']
-    relative_image_url = relative_image_url.replace(relative_image_url[:5], '')
+    relative_image_url = relative_image_url.lstrip('../')
     absolute_image_url = urljoin('http://books.toscrape.com', relative_image_url)
+    fichier = f"./Book_covers/{category}/{title.replace('/', ' - ')}-cover.jpg"
     book_infos = {
         'product_page_url': product_page_url,
         'universal_product_code': universal_product_code,
@@ -55,16 +56,15 @@ def get_book_infos(book_url):
         'product_description': product_description,
         'category': category,
         'review_rating': review_rating,
-        'image_url': absolute_image_url
+        'image_url': absolute_image_url,
+        'image_local_path': fichier
     }
-    fichier = f"./Book_covers/{category}/{title.replace('/', ' - ')}-cover.jpg"
     book_cover = requests.get(absolute_image_url).content
     os.makedirs(os.path.dirname(fichier), exist_ok=True)
     with open(fichier, 'wb') as handler:
         handler.write(book_cover)
-        print(f"\n Infos du livre \"{title}\" récupérées ->"
-              f" L'image de couverture a été copiée dans ./Book_covers/{category}/")
-    book_infos['image_local_path'] = fichier
+        print(f"Infos du livre \"{title}\" récupérées\n->"
+              f" L'image de couverture a été copiée dans ./Book_covers/{category}/\n")
     return book_infos
 
 

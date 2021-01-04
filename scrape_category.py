@@ -1,3 +1,4 @@
+from datetime import datetime
 import requests
 from urllib.parse import urljoin, urlsplit
 from utils import html_to_soup, url_args_parser, list_of_lists_to_flat_list
@@ -11,6 +12,7 @@ def main():
     et les copie dans un fichier CSV pour cette catégorie
     tout en enregistrant les images de couvertures des livres dans un dossier spécifique.
     """
+    timestamp_start = datetime.now()
     args = url_args_parser()
     pagination_pages = get_all_pages_category(args.url)
     relative_books_urls_list = get_category_books_urls(pagination_pages)
@@ -18,6 +20,8 @@ def main():
     absolute_books_urls = reformat_list_of_relative_urls_to_absolute(relative_books_urls)
     book_infos_list = add_book_infos_to_list(absolute_books_urls)
     write_csv_loop(book_infos_list)
+    execution_time = datetime.now() - timestamp_start
+    print(f"Le programme a mis {execution_time} pour s'executer")
 
 
 def get_all_pages_category(url):
