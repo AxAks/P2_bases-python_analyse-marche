@@ -2,7 +2,8 @@ from datetime import datetime
 from urllib.parse import urljoin
 from utils import html_to_soup, list_of_lists_to_flat_list
 from scrape_category import get_all_pages_category, \
-    get_category_books_urls, reformat_list_of_relative_urls_to_absolute, add_book_infos_to_list, write_csv_loop
+    get_category_books_urls, reformat_list_of_relative_urls_to_absolute,\
+    add_book_infos_to_list, write_csv_loop, save_book_cover_loop
 
 
 def main():
@@ -22,6 +23,7 @@ def main():
     absolute_books_urls_list = reformat_list_of_relative_urls_to_absolute(relative_books_urls_list)
     book_infos_list = add_book_infos_to_list(absolute_books_urls_list)
     write_csv_loop(book_infos_list)
+    save_book_cover_loop(book_infos_list)
     print('---')
     execution_time = datetime.now() - timestamp_start
     print(f"Le programme a mis {execution_time} pour s'executer")

@@ -2,7 +2,7 @@ from datetime import datetime
 import requests
 from urllib.parse import urljoin, urlsplit
 from utils import html_to_soup, url_args_parser, list_of_lists_to_flat_list
-from scrape_book import get_book_infos, write_csv
+from scrape_book import get_book_infos, write_csv, save_book_cover
 
 
 def main():
@@ -20,6 +20,7 @@ def main():
     absolute_books_urls = reformat_list_of_relative_urls_to_absolute(relative_books_urls)
     book_infos_list = add_book_infos_to_list(absolute_books_urls)
     write_csv_loop(book_infos_list)
+    save_book_cover_loop(book_infos_list)
     execution_time = datetime.now() - timestamp_start
     print(f"Le programme a mis {execution_time} pour s'executer")
 
@@ -48,8 +49,8 @@ def get_all_pages_category(url):
         if not response.ok:
             break
         pagination_pages.append(next_page_absolute)
-    print(f"Nombre de pages trouvées pour la catégorie : {len(pagination_pages)}")
-    print('---')
+    print(f"Nombre de pages trouvées pour la catégorie : {len(pagination_pages)}\n"
+          f"---")
     return pagination_pages
 
 
@@ -62,8 +63,8 @@ def get_books_urls(page):
     liens = soup.find_all('a', href=True, title=True)
     print(f"Scan des URLs Produit de la page : {page}")
     relative_books_urls = [{'titre': lien['title'], 'lien': lien['href']} for lien in liens]
-    print(f"Nombre de titres trouvés sur la page : {len(relative_books_urls)}")
-    print("---")
+    print(f"Nombre de titres trouvés sur la page : {len(relative_books_urls)}\n"
+          f"---")
     return relative_books_urls
 
 
@@ -82,8 +83,8 @@ def reformat_list_of_relative_urls_to_absolute(relative_urls):
     """
     absolute_urls_list = [urljoin("http://books.toscrape.com/catalogue/", relative_url['lien'].lstrip('../'))
                           for relative_url in relative_urls]
-    print(f"{len(absolute_urls_list)} liens ont été reformatés")
-    print("---")
+    print(f"{len(absolute_urls_list)} liens ont été reformatés\n"
+          f"---")
     return absolute_urls_list
 
 
@@ -103,8 +104,19 @@ def write_csv_loop(book_infos_list):
     """
     for book_infos in book_infos_list:
         write_csv(book_infos)
-    print('---')
-    print(f"{len(book_infos_list)} références copiées")
+    print(f"{len(book_infos_list)} références copiées\n"
+          f"---")
+
+
+def save_book_cover_loop(book_infos_list):
+    """
+    Boucle pour sauvegarder les images de couverture des livres dans un dossier local
+    Utilise save_book_cover.
+    """
+    for book_infos in book_infos_list:
+        save_book_cover(book_infos)
+    print(f"{len(book_infos_list)} images ont été sauvegardées\n"
+          f"---")
 
 
 if __name__ == "__main__":

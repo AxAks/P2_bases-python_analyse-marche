@@ -24,8 +24,8 @@ def main():
           f"- product_description : {book_infos['product_description']}\n"
           f"- category : {book_infos['category']}\n"
           f"- review_rating : {book_infos['review_rating']}\n"
-          f"- image_url : {book_infos['image_url']}\n"
-          f"- image_local_path : {book_infos['image_local_path']}\n")
+          f"- image_url : {book_infos['image_url']}\n")
+    save_book_cover(book_infos)
 
 
 def get_book_infos(book_url):
@@ -45,7 +45,6 @@ def get_book_infos(book_url):
     relative_image_url = soup.find('img')['src']
     relative_image_url = relative_image_url.lstrip('../')
     absolute_image_url = urljoin('http://books.toscrape.com', relative_image_url)
-    fichier = f"./Book_covers/{category}/{title.replace('/', ' - ')}-cover.jpg"
     book_infos = {
         'product_page_url': product_page_url,
         'universal_product_code': universal_product_code,
@@ -56,15 +55,9 @@ def get_book_infos(book_url):
         'product_description': product_description,
         'category': category,
         'review_rating': review_rating,
-        'image_url': absolute_image_url,
-        'image_local_path': fichier
+        'image_url': absolute_image_url
     }
-    book_cover = requests.get(absolute_image_url).content
-    os.makedirs(os.path.dirname(fichier), exist_ok=True)
-    with open(fichier, 'wb') as handler:
-        handler.write(book_cover)
-        print(f"Infos du livre \"{title}\" récupérées\n->"
-              f" L'image de couverture a été copiée dans ./Book_covers/{category}/\n")
+    print(f'Infos du livre "{title}\" récupérées')
     return book_infos
 
 
@@ -73,18 +66,30 @@ def write_csv(book_infos):
     Prend en entrée un dictionnaire et copie les informations dans un fichier CSV.
     """
     category = book_infos['category']
+    title = book_infos['title']
     fichier = f"./references_per_category/{category}-prices_watch.csv"
     os.makedirs(os.path.dirname(fichier), exist_ok=True)
     if not os.path.exists(fichier):
         columns = ['product_page_url', 'universal_product_code',
                    'title', 'price_including_tax', 'price_excluding_tax',
                    'number_available', 'product_description', 'category',
-                   'review_rating', 'image_url', 'image_local_path']
+                   'review_rating', 'image_url']
         with open(fichier, mode='w', encoding='utf-8') as f:
             f.write(';'.join(columns) + '\n')
     with open(fichier, "a") as fichier:
         df = pd.DataFrame(book_infos, index=[1])
         df.to_csv(fichier, encoding='utf-8', sep=';', mode="a", header=False, index=False)
+
+
+def save_book_cover(book_infos):
+    category = book_infos['category']
+    title = book_infos['title'].replace('/', ' - ')
+    fichier = f"./Book_covers/{category}/{title}-cover.jpg"
+    book_cover = requests.get(book_infos['image_url']).content
+    os.makedirs(os.path.dirname(fichier), exist_ok=True)
+    with open(fichier, 'wb') as handler:
+        handler.write(book_cover)
+        print(f'L\'image de couverture de "{title}" a été copiée dans ./Book_covers/{category}/')
 
 
 if __name__ == "__main__":
