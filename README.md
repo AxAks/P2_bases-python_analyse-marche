@@ -4,11 +4,11 @@ Ce scrapper permet de récupérer les informations des produits présents sur le
 Cela peut être pour une référence unique, une catégorie entière ou l'ensemble des références du site.
 ***
 
-### Chapitres 
+## Chapitres 
 1. [Installation](#installation)
 2. [Exécution du code](#Execution_du_code)
 
-### Installation (depuis le terminal)
+## Installation (depuis le terminal)
 
 
 1. __Téléchargement du projet :__  
@@ -37,7 +37,7 @@ $ pip --version
 $ pip install -r requirements.txt
 
 ***
-### Exécution du code (depuis le terminal à la racine du projet)
+## Exécution du code (depuis le terminal à la racine du projet)
 
 - _Récupérer les informations d'une référence unique :_  
 Les informations du produit sont affichées à l'ecran mais ne sont pas sauvegardées dans un fichier CSV  
