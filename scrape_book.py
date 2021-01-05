@@ -5,7 +5,6 @@ import pandas as pd
 from utils import html_to_soup, url_args_parser
 
 
-
 def main():
     """
     Prend en paramètre une URL de page produit
