@@ -1,8 +1,20 @@
 
-# Ignorer les fichiers PyCharm
+# Liste des fichiers et dossiers à ignorer
+
+
+# Environnement virtuel
+venv_bookscrapper
+
+# Fichiers Pycharm
 .idea/
+
+# Fichier de compilation
 __pycache__/
+
+# Fichier d'algorithmes
 algorithme_scrape-category.txt
+
+# Extractions
 Book_covers
 references_per_category
 P2_bases-python_analyse-marche_Extractions.zip
