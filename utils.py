@@ -34,8 +34,5 @@ def list_of_lists_to_flat_list(list_of_lists):
     """
     Cette fonction transforme une liste de liste d'URLs en liste d'URLs simple.
     """
-    flat_list = []
-    for liste in list_of_lists:
-        for item in liste:
-            flat_list.append(item)
+    flat_list = [item for liste in list_of_lists for item in liste]
     return flat_list
