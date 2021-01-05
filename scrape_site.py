@@ -8,8 +8,9 @@ from scrape_category import get_all_pages_category, \
 
 def main():
     """
-    Récupèrer les informations de toutes les références du site book.toscrape.com : http://books.toscrape.com/,
-    copie ces informations dans un fichier CSV d'après la catégorie du livre
+    Cette fonction récupèrer les informations de toutes les références
+    du site book.toscrape.com : http://books.toscrape.com/.
+    Elle copie ces informations dans un fichier CSV d'après la catégorie du livre
     et télécharge l'image de couverture du livre dans un dossier dédiée à sa catégorie
     """
     timestamp_start = datetime.now()
@@ -42,7 +43,7 @@ def scrape_site(site_url):
 
 def get_absolute_category_urls_list(relative_category_urls_list):
     """
-    Reformate les URLs Categories relatives en URLs Absolues.
+    Cette fonction reformate les URLs relatives des categories en URLs absolues depuis la racine du site.
     """
     site_url = 'http://books.toscrape.com/'
     absolute_category_urls_list = [urljoin(site_url, relative_category_url)
@@ -52,7 +53,7 @@ def get_absolute_category_urls_list(relative_category_urls_list):
 
 def get_category_pagination_pages(absolute_category_urls_list):
     """
-    Permet de vérifier s'il existe plusieurs pages pour une liste d'URLs de categorie
+    Cette fonction permet de vérifier s'il existe plusieurs pages pour une liste d'URLs de catégorie
     et recupèrer les URLs de toutes ces pages dans une liste de listes.
     """
     all_categories_pages = [get_all_pages_category(absolute_category_url)

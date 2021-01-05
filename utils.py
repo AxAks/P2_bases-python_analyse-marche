@@ -9,7 +9,7 @@ Fichier général de fonctions  réutilisables
 
 def html_to_soup(book_url):
     """
-    Transforme le contenu d'une page web en format BeautifulSoup.
+    Cette fonction  transforme le contenu d'une page web en format BeautifulSoup.
     """
     try:
         response = requests.get(book_url)
@@ -22,7 +22,7 @@ def html_to_soup(book_url):
 
 def url_args_parser():
     """
-    Permet de lancer le script depuis le terminal bash en mentionnant une URL en tant qu'argument.
+    Cette fonction permet de lancer le script depuis le terminal bash en mentionnant une URL en tant qu'argument.
     """
     parser = argparse.ArgumentParser()
     parser.add_argument("url", help="scrapes all the products URLs on the page given as argument", type=str)
@@ -30,10 +30,9 @@ def url_args_parser():
     return args
 
 
-
 def list_of_lists_to_flat_list(list_of_lists):
     """
-    transforme la liste de liste d'URLs en liste d'URLs simple
+    Cette fonction transforme une liste de liste d'URLs en liste d'URLs simple.
     """
     flat_list = []
     for liste in list_of_lists:

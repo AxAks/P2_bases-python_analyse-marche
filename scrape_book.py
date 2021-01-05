@@ -7,10 +7,9 @@ from utils import html_to_soup, url_args_parser
 
 def main():
     """
-    Prend en paramètre une URL de page produit
-    Récupère les informations de cette référence
-    Télécharge l'image de couverture
-    et affiche les informations à l'ecran
+    Cette fonction  prend en paramètre une URL de page produit.
+    Elle récupère les informations de cette référence, télécharge l'image de couverture
+    et affiche les informations à l'ecran.
     """
     args = url_args_parser()
     book_infos = get_book_infos(args.url)
@@ -30,7 +29,8 @@ def main():
 
 def get_book_infos(book_url):
     """
-    Prend en entrée l'URL d'une page produit du site et retourne un dictionnaire avec les informations recherchées.
+    Cette fonction prend en entrée l'URL d'une page produit du site
+    et retourne un dictionnaire avec les informations recherchées.
     """
     soup = html_to_soup(book_url)
     product_page_url = str(book_url)
@@ -63,7 +63,7 @@ def get_book_infos(book_url):
 
 def write_csv(book_infos):
     """
-    Prend en entrée un dictionnaire et copie les informations dans un fichier CSV.
+    Cette fonction prend en entrée un dictionnaire et copie les informations dans un fichier CSV.
     """
     category = book_infos['category']
     fichier = f"./references_per_category/{category}-prices_watch.csv"
@@ -81,6 +81,10 @@ def write_csv(book_infos):
 
 
 def save_book_cover(book_infos):
+    """
+    Cette fonction prend en entrée un dictionnaire
+    et télécharge l'image de couverture du livre à partir de l'URL extraite.
+    """
     category = book_infos['category']
     title = book_infos['title'].replace('/', ' - ')
     fichier = f"./Book_covers/{category}/{title}-cover.jpg"
