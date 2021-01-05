@@ -1,8 +1,9 @@
 import requests
 import os
+from urllib.parse import urljoin
 import pandas as pd
 from utils import html_to_soup, url_args_parser
-from urllib.parse import urljoin
+
 
 
 def main():
