@@ -8,7 +8,7 @@ Cela peut être pour une référence unique, une catégorie entière ou l'ensemb
 1. [Installation](#installation)
 2. [Exécution du code](#execution-du-code)
 
-## 1. Installation (depuis le terminal)
+## 1. Installation (depuis le terminal) <a name="installation"></a>
 
 
 1. __Téléchargement du projet :__  
@@ -37,7 +37,7 @@ $ pip --version
 $ pip install -r requirements.txt
 
 ***
-## 2. Exécution du code (depuis le terminal à la racine du projet)
+## 2. Exécution du code (depuis le terminal à la racine du projet) <a name="execution-du-code"></a>
 
 - _Récupérer les informations d'une référence unique :_  
 Les informations du produit sont affichées à l'ecran mais ne sont pas sauvegardées dans un fichier CSV  
