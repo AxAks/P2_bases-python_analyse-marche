@@ -80,10 +80,10 @@ def write_csv(book_infos):
                    'title', 'price_including_tax', 'price_excluding_tax',
                    'number_available', 'product_description', 'category', 'review_rating', 'image_url']
         with open(fichier, mode='w', encoding='utf-8') as f:
-            f.write(','.join(columns) + '\n')
+            f.write(';'.join(columns) + '\n')
     with open(fichier, "a") as fichier:
         df = pd.DataFrame(book_infos, index=[1])
-        df.to_csv(fichier, encoding='utf-8', mode="a", header=False, index=False)
+        df.to_csv(fichier, encoding='utf-8', sep=';', mode="a", header=False, index=False)
 
 
 if __name__ == "__main__":
