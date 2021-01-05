@@ -57,7 +57,7 @@ def get_book_infos(book_url):
         'review_rating': review_rating,
         'image_url': absolute_image_url
     }
-    print(f'Infos du livre "{title}\" récupérées')
+    print(f'Les infos du livre "{title}\" ont été récupérées')
     return book_infos
 
 
@@ -66,7 +66,6 @@ def write_csv(book_infos):
     Prend en entrée un dictionnaire et copie les informations dans un fichier CSV.
     """
     category = book_infos['category']
-    title = book_infos['title']
     fichier = f"./references_per_category/{category}-prices_watch.csv"
     os.makedirs(os.path.dirname(fichier), exist_ok=True)
     if not os.path.exists(fichier):
@@ -89,7 +88,7 @@ def save_book_cover(book_infos):
     os.makedirs(os.path.dirname(fichier), exist_ok=True)
     with open(fichier, 'wb') as handler:
         handler.write(book_cover)
-        print(f'L\'image de couverture de "{title}" a été copiée dans ./Book_covers/{category}/')
+        print(f'L\'image de couverture de "{title}" a été copiée dans "./Book_covers/{category}/"')
 
 
 if __name__ == "__main__":
