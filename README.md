@@ -50,5 +50,5 @@ $ python scrape_book.py "url"
 $ python scrape_category.py "url"  
 
 - _Récupérer les informations de toutes les références du site :_  
-$python scrape_site.py
+$ python scrape_site.py
 ***
