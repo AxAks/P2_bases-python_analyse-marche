@@ -78,7 +78,8 @@ def write_csv(book_infos):
     if not os.path.exists(fichier):
         columns = ['product_page_url', 'universal_product_code',
                    'title', 'price_including_tax', 'price_excluding_tax',
-                   'number_available', 'product_description', 'category', 'review_rating', 'image_url']
+                   'number_available', 'product_description', 'category',
+                   'review_rating', 'image_url', 'image_local_path']
         with open(fichier, mode='w', encoding='utf-8') as f:
             f.write(';'.join(columns) + '\n')
     with open(fichier, "a") as fichier:
