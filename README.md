@@ -1,12 +1,12 @@
 # P2_bases-python-analyse-marché
 ***
 Ce scrapper permet de récupérer les informations des produits présents sur le site http://books.toscrape.com/.  
-Cela peut être pour une référence unique, une categorie entière ou l'ensemble des références du site.
+Cela peut être pour une référence unique, une catégorie entière ou l'ensemble des références du site.
 ***
 
 ### Chapitres 
 1. [Installation](#installation)
-2. [Execution du code](#Execution_du_code)
+2. [Exécution du code](#Execution_du_code)
 
 ### Installation (depuis le terminal)
 
@@ -19,7 +19,7 @@ $ git clone git@github.com:AxAks/P2_bases-python_analyse-marche.git
 - _Installation de virtualenv :_  
 $ sudo apt install virtualenv
 
-- _Se déplacer dans le projet à l'endroit où le dossier doit etre créé :_  
+- _Se déplacer à la racine du projet :_  
 $ cd P2_bases-python_analyse-marche
 
 - _Création de l'environnement virtuel :_  
@@ -37,16 +37,16 @@ $ pip --version
 $ pip install -r requirements.txt
 
 ***
-### Execution du code (depuis le terminal à la racine du projet)
+### Exécution du code (depuis le terminal à la racine du projet)
 
 - _Récupérer les informations d'une référence unique :_  
 Les informations du produit sont affichées à l'ecran mais ne sont pas sauvegardées dans un fichier CSV  
-("url" doit etre l'url d'une page produit écrite en toutes lettres)  
+("url" doit être l'url d'une page produit écrite en toutes lettres)  
 $ python scrape_book.py "url"  
 
 
-- _Recupérer les informations des références d'une catégorie:_  
-("url" doit etre l'url d'une page categorie écrite en toute lettres)  
+- _Récupérer les informations des références d'une catégorie:_  
+("url" doit être l'url d'une page categorie écrite en toutes lettres)  
 $ python scrape_category.py "url"  
 
 - _Récupérer les informations de toutes les références du site :_  
