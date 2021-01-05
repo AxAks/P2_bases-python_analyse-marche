@@ -1,47 +1,54 @@
-# P2_bases-python_analyse-marché
-Bookscrapper
+# P2_bases-python-analyse-marché
+***
+Ce scrapper permet de récupérer les informations des produits présents sur le site http://books.toscrape.com/.  
+Cela peut être pour une référence unique, une categorie entière ou l'ensemble des références du site.
+***
+
+### Chapitres 
+1. [Installation](#installation)
+2. [Execution du code](#Execution_du_code)
+
+### Installation (depuis le terminal)
 
 
-# à compléter
- création et activation de l'environnement virtuel
- (dans un terminal)
+1. __Téléchargement du projet :__  
+$ git clone git@github.com:AxAks/P2_bases-python_analyse-marche.git
+
+2. __Création et activation de l'environnement virtuel  :__  
+
+- _Installation de virtualenv :_  
+$ sudo apt install virtualenv
+
+- _Se déplacer dans le projet à l'endroit où le dossier doit etre créé :_  
+$ cd P2_bases-python_analyse-marche
+
+- _Création de l'environnement virtuel :_  
+$ python3.9 -m virtualenv venv_bookscrapper
+
+- _Activation de l'environnement :_  
+$ source venv_bookscrapper/bin/activate
+
+- _Installation du gestionnaire de paquets python 'pip' dans l'environnement :_  
+$ wget https://bootstrap.pypa.io/get-pip.py  
+$ python3.9 get-pip.py  
+$ pip --version  
+
+- _Installation des dépendances du projet dans l'environnement :_  
+$ pip install -r requirements.txt
+
+***
+### Execution du code (depuis le terminal à la racine du projet)
+
+- _Récupérer les informations d'une référence unique :_  
+Les informations du produit sont affichées à l'ecran mais ne sont pas sauvegardées dans un fichier CSV  
+("url" doit etre l'url d'une page produit écrite en toutes lettres)  
+$ python scrape_book.py "url"  
 
 
-Installation de virtualenv :
-- sudo apt install virtualenv
+- _Recupérer les informations des références d'une catégorie:_  
+("url" doit etre l'url d'une page categorie écrite en toute lettres)  
+$ python scrape_category.py "url"  
 
-se déplacer dans le projet à l'endroit où le dossier doit etre créé :
-- cd P2_bases-python_analyse-marche
-
-Création de l'environnement virtuel :
-- python3.9 -m virtualenv venv_bookscrapper
-
-Activation de l'environnement :
-- source venv_bookscrapper/bin/activate
-
-Installation du gestionnaire de paquets python 'pip' :
-- wget https://bootstrap.pypa.io/get-pip.py (télécharger le script d'installation du gestionnaire de paquets python pip)
-- python3.9 get-pip.py (installer pip dans l'environnement virtuel via l'execution du script téléchargé précédemment)
-- pip --version (vérifier la version de pip installée)
-
-Installation des dépendances du projet :
-- pip install -r requirements.txt
-
-
-
-
-Exécution de l'application (depuis le terminal) :
-
-Se déplacer dans le dossier du projet :
-- cd P2_bases-python_analyse-marche
-
-Récupérer les informations d'un livre :
-    - python scrape_book.py url (url doit etre l'url d'une page produit écrite en toutes lettres)
--> C'est pour une page produit seulement, les informations sont affichées mais ne sont pas sauvegardées dans un fichier CSV
-
-Recupérer les informations des références d'une catégorie:
-    - python scrape_category.py url
--> ("url" doit etre l'url d'une page categorie écrite en toute lettres)
-
-Récupérer les informations de toutes les références du site :
-    - python scrape_site.py
+- _Récupérer les informations de toutes les références du site :_  
+$python scrape_site.py
+***
