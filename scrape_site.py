@@ -1,3 +1,5 @@
+# coding=utf-8
+
 from datetime import datetime
 from urllib.parse import urljoin
 from utils import html_to_soup, list_of_lists_to_flat_list
