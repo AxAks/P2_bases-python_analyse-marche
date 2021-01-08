@@ -19,8 +19,17 @@ Cela peut être pour une référence unique, une catégorie entière ou l'ensemb
 ***
 ## 2. Installation (depuis le terminal) <a name="installation"></a>
 
-1. __Téléchargement du projet :__  
-$ git clone git@github.com:AxAks/P2_bases-python_analyse-marche.git
+1. __Téléchargement du projet :__
+
+Via git:
+$ git clone https://github.com/AxAks/P2_bases-python_analyse-marche.git
+ou
+$ git clone git@github.com:AxAks/P2_bases-python_analyse-marche.git  (avec uen clé SSH)
+
+Via le web :
+-> Visiter la page : https://github.com/AxAks/P2_bases-python_analyse-marche
+-> Cliquer sur "code"
+-> Télécharger le projet
 
 2. __Création et activation de l'environnement virtuel  :__
 
