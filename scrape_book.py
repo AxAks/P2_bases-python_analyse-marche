@@ -36,16 +36,16 @@ def get_book_infos(book_url):
     """
     soup = html_to_soup(book_url)
     product_page_url = str(book_url)
-    universal_product_code = soup.find_all('td')[0].get_text()
+    all_tds = soup.find_all('td')
+    universal_product_code = all_tds[0].get_text()
     title = soup.find_all('h1')[0].get_text()
-    price_including_tax = soup.find_all('td')[3].get_text()
-    price_excluding_tax = soup.find_all('td')[2].get_text()
-    number_available = soup.find_all('td')[5].get_text()
+    price_including_tax = all_tds[3].get_text()
+    price_excluding_tax = all_tds[2].get_text()
+    number_available = all_tds[5].get_text()
     product_description = soup.find_all('p')[3].get_text()
     category = soup.find_all('a')[3].get_text()
     review_rating = soup.find_all('p', class_='star-rating')[0].get('class')[1]
-    relative_image_url = soup.find('img')['src']
-    relative_image_url = relative_image_url.lstrip('../')
+    relative_image_url = soup.find('img')['src'].lstrip('../')
     absolute_image_url = urljoin('http://books.toscrape.com', relative_image_url)
     book_infos = {
         'product_page_url': product_page_url,

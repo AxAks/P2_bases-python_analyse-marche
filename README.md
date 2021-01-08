@@ -4,17 +4,23 @@ Ce scrapper permet de récupérer les informations des produits présents sur le
 Cela peut être pour une référence unique, une catégorie entière ou l'ensemble des références du site.
 ***
 
-## Chapitres 
-1. [Installation](#installation)
-2. [Exécution du code](#execution-du-code)
+## Chapitres
 
-## 1. Installation (depuis le terminal) <a name="installation"></a>
+1. [Prérequis](#prerequis)
+2. [Installation](#installation)
+3. [Exécution du code](#execution-du-code)
 
+## 1. Pré-requis <a name="prerequis"></a>
+
+- Python 3.9
+- Virtualenv
+
+## 2. Installation (depuis le terminal) <a name="installation"></a>
 
 1. __Téléchargement du projet :__  
 $ git clone git@github.com:AxAks/P2_bases-python_analyse-marche.git
 
-2. __Création et activation de l'environnement virtuel  :__  
+2. __Création et activation de l'environnement virtuel  :__
 
 - _Installation de virtualenv :_  
 $ sudo apt install virtualenv
