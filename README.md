@@ -27,9 +27,9 @@ $ git clone https://github.com/AxAks/P2_bases-python_analyse-marche.git
 
 - Via le Web :
 
--> Visiter la page : https://github.com/AxAks/P2_bases-python_analyse-marche
--> Cliquer sur "Code"
--> Télécharger le projet
+1- Visiter la page : https://github.com/AxAks/P2_bases-python_analyse-marche
+2- Cliquer sur "Code"
+3- Télécharger le projet
 
 2. __Création et activation de l'environnement virtuel  :__
 
