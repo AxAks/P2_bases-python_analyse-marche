@@ -11,7 +11,7 @@ Cela peut être pour une référence unique, une catégorie entière ou l'ensemb
 3. [Exécution du code](#execution-du-code)
 
 ***
-## 1. Prérequis <a name="prerequis"></a>
+## 1.Pré-requis <a name="prerequis"></a>
 
 - Python 3.9
 - Virtualenv
