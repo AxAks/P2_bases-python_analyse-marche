@@ -21,10 +21,12 @@ Cela peut être pour une référence unique, une catégorie entière ou l'ensemb
 
 1. __Téléchargement du projet :__
 
-- Via Git:
+- Via Git :
+
 $ git clone https://github.com/AxAks/P2_bases-python_analyse-marche.git
 
 - Via le Web :
+
 -> Visiter la page : https://github.com/AxAks/P2_bases-python_analyse-marche
 -> Cliquer sur "Code"
 -> Télécharger le projet
