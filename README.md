@@ -28,6 +28,7 @@ ou
 $ git clone git@github.com:AxAks/P2_bases-python_analyse-marche.git  (avec une clé SSH)
 
 Via le Web :
+
 - Visiter la page : https://github.com/AxAks/P2_bases-python_analyse-marche
 - Cliquer sur "Code"
 - Télécharger le projet
