@@ -10,7 +10,8 @@ from utils import html_to_soup, url_args_parser
 def main():
     """
     Cette fonction  prend en paramètre une URL de page produit.
-    Elle récupère les informations de cette référence, télécharge l'image de couverture
+    Elle récupère les informations de cette référence,
+    télécharge l'image de couverture
     et affiche les informations à l'ecran.
     """
     args = url_args_parser()
@@ -46,7 +47,8 @@ def get_book_infos(book_url):
     category = soup.find_all('a')[3].get_text()
     review_rating = soup.find_all('p', class_='star-rating')[0].get('class')[1]
     relative_image_url = soup.find('img')['src'].lstrip('../')
-    absolute_image_url = urljoin('http://books.toscrape.com', relative_image_url)
+    absolute_image_url = urljoin('http://books.toscrape.com',
+                                 relative_image_url)
     book_infos = {
         'product_page_url': product_page_url,
         'universal_product_code': universal_product_code,
@@ -65,7 +67,8 @@ def get_book_infos(book_url):
 
 def write_csv(book_infos):
     """
-    Cette fonction prend en entrée un dictionnaire et copie les informations dans un fichier CSV.
+    Cette fonction prend en entrée un dictionnaire
+    et copie les informations dans un fichier CSV.
     """
     category = book_infos['category']
     fichier = f"./references_per_category/{category}-prices_watch.csv"
@@ -79,7 +82,8 @@ def write_csv(book_infos):
             f.write(';'.join(columns) + '\n')
     with open(fichier, "a") as fichier:
         df = pd.DataFrame(book_infos, index=[1])
-        df.to_csv(fichier, encoding='utf-8', sep=';', mode="a", header=False, index=False)
+        df.to_csv(fichier, encoding='utf-8', sep=';',
+                  mode="a", header=False, index=False)
 
 
 def save_book_cover(book_infos):
@@ -94,7 +98,8 @@ def save_book_cover(book_infos):
     os.makedirs(os.path.dirname(fichier), exist_ok=True)
     with open(fichier, 'wb') as handler:
         handler.write(book_cover)
-        print(f'L\'image de couverture de "{title}" a été copiée dans "./Book_covers/{category}/"')
+        print(f'L\'image de couverture de "{title}" a été copiée'
+              f'dans "./Book_covers/{category}/"')
 
 
 if __name__ == "__main__":

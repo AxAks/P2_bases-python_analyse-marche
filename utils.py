@@ -5,13 +5,14 @@ from bs4 import BeautifulSoup as bs
 import argparse
 
 """
-Fichier général de fonctions  réutilisables 
+Fichier général de fonctions  réutilisables
 """
 
 
 def html_to_soup(book_url):
     """
-    Cette fonction  transforme le contenu d'une page web en format BeautifulSoup.
+    Cette fonction  transforme le contenu d'une page web
+    en format BeautifulSoup.
     """
     try:
         response = requests.get(book_url)
@@ -24,10 +25,14 @@ def html_to_soup(book_url):
 
 def url_args_parser():
     """
-    Cette fonction permet de lancer le script depuis le terminal bash en mentionnant une URL en tant qu'argument.
+    Cette fonction permet de lancer le script depuis le terminal bash
+    en mentionnant une URL en tant qu'argument.
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument("url", help="scrapes all the products URLs on the page given as argument", type=str)
+    parser.add_argument("url",
+                        help="scrapes all the products URLs"
+                             " on the page given as argument",
+                        type=str)
     args = parser.parse_args()
     return args
 
